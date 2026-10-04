@@ -1,0 +1,10 @@
+{
+  "name": "@arcmentor/config",
+  "version": "0.1.0",
+  "private": true,
+  "files": [
+    "eslint-preset.js",
+    "tailwind-preset.js",
+    "tsconfig.json"
+  ]
+}

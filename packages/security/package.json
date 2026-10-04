@@ -1,0 +1,21 @@
+{
+  "name": "@arcmentor/security",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./room-tokens": "./room-tokens.ts",
+    "./rate-limiter": "./rate-limiter.ts"
+  },
+  "dependencies": {
+    "@arcmentor/types": "workspace:*",
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.0",
+    "typescript": "^5.6.0"
+  }
+}

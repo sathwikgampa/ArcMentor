@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@arcmentor/types": "workspace:*",
+    "@arcmentor/security": "workspace:*",
     "socket.io": "^4.8.0",
     "yjs": "^13.6.0",
     "y-socket.io": "^1.0.0",
