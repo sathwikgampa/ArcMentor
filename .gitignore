@@ -1,0 +1,52 @@
+# === Dependencies ===
+node_modules/
+.pnpm-store/
+
+# === Build Outputs ===
+.next/
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# === Environment Variables ===
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# === IDE / Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+
+# === Testing / Coverage ===
+coverage/
+*.lcov
+
+# === Prisma ===
+packages/db/prisma/*.db
+packages/db/prisma/*.db-journal
+
+# === Docker ===
+docker-compose.override.yml
+
+# === Turbo ===
+.turbo/
+
+# === Logs ===
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# === Misc ===
+*.pid
+*.seed
+*.pid.lock

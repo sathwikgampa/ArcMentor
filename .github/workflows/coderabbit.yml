@@ -1,0 +1,28 @@
+name: CodeRabbit
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  coderabbit:
+    name: CodeRabbit AI Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # CodeRabbit is configured via the .coderabbit.yaml file at the repo root
+      # and is triggered automatically on PRs via the CodeRabbit GitHub App.
+      # This workflow ensures the PR is ready for review and logs the event.
+      - name: Log CodeRabbit trigger
+        run: |
+          echo "CodeRabbit AI review triggered for PR #${{ github.event.pull_request.number }}"
+          echo "Title: ${{ github.event.pull_request.title }}"
+          echo "Author: ${{ github.event.pull_request.user.login }}"
