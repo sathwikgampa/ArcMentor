@@ -4,21 +4,22 @@
 
 @layer base {
   :root {
-    --color-primary: #4F46E5;
-    --color-primary-light: #818CF8;
-    --color-primary-dark: #3730A3;
+    --color-primary: #5856D6;
+    --color-primary-light: #7E7DF8;
+    --color-primary-dark: #4341B8;
+    --color-bg-dark: #020617; /* bg-slate-950 */
+    --color-bg-light: #0F172A;
+    --color-bg-card: #0F172A;
+    --color-bg-subtle: #1E293B;
+    --color-border: #1E293B;
+    --color-border-dark: #334155;
+    --color-text-primary: #F8FAFC; /* text-slate-50 */
+    --color-text-secondary: #94A3B8;
+    --color-text-muted: #64748B;
     --color-success: #10B981;
     --color-warning: #F59E0B;
     --color-error: #EF4444;
     --color-info: #0EA5E9;
-    --color-bg-dark: #0F172A;
-    --color-bg-light: #F8FAFC;
-    --color-bg-card: #FFFFFF;
-    --color-bg-subtle: #F1F5F9;
-    --color-border: #E2E8F0;
-    --color-text-primary: #0F172A;
-    --color-text-secondary: #64748B;
-    --color-text-muted: #94A3B8;
   }
 
   * {
@@ -29,10 +30,13 @@
 
   html {
     scroll-behavior: smooth;
+    color-scheme: dark;
   }
 
   body {
     min-height: 100vh;
+    background-color: #020617;
+    color: #f8fafc;
   }
 }
 
@@ -53,9 +57,9 @@
   .skeleton {
     background: linear-gradient(
       90deg,
-      #F1F5F9 25%,
-      #E2E8F0 50%,
-      #F1F5F9 75%
+      #1E293B 25%,
+      #334155 50%,
+      #1E293B 75%
     );
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
@@ -64,9 +68,14 @@
 }
 
 @layer utilities {
-  /* Gradient text utility */
+  /* Custom reusable glassmorphism utility */
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl;
+  }
+
+  /* Gradient text utility using primary brand color */
   .text-gradient {
-    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    background: linear-gradient(135deg, #5856D6, #9089FC);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

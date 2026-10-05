@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/footer';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -41,9 +43,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="font-sans antialiased bg-surface text-text-primary">
-        {children}
+    <html lang="en" className="dark">
+      <body
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans min-h-screen bg-slate-950 text-slate-50 antialiased flex flex-col`}
+      >
+        <Navbar />
+        <main className="flex-grow flex flex-col">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
