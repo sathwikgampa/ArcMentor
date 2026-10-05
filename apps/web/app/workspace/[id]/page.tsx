@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useState, useEffect, use } from 'react';
+import React, { useEffect, use } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import {
   Code2,
   PenTool,
-  Play,
   Clock,
   PhoneOff,
+  ArrowLeftRight,
 } from 'lucide-react';
 import { CreditBadge } from '@/components/shared/credit-badge';
 import { UserAvatar } from '@/components/shared/user-avatar';
@@ -16,6 +16,7 @@ import { CodeEditor } from './_components/code-editor';
 import { IntervieweeSurface } from './_components/interviewee-surface';
 import { InterviewerSurface } from './_components/interviewer-surface';
 import { AVGrid } from './_components/a-v-grid';
+import { useWorkspaceStore } from '@/lib/store/workspace-store';
 
 // Dynamically import Whiteboard with ssr: false
 const Whiteboard = dynamic(() => import('./_components/whiteboard'), {
@@ -38,35 +39,28 @@ export default function WorkspacePage({ params }: WorkspacePageProps) {
   const resolvedParams = use(params);
   const roomId = resolvedParams?.id || 'live-session';
 
-  // State
-  const [activeView, setActiveView] = useState<'code' | 'whiteboard'>('code');
-  const [selectedLanguage, setSelectedLanguage] = useState('javascript');
-  const [code, setCode] = useState(
-    `/**\n * Problem: Two Sum\n * @param {number[]} nums\n * @param {number} target\n * @return {number[]}\n */\nfunction twoSum(nums, target) {\n  const map = new Map();\n  for (let i = 0; i < nums.length; i++) {\n    const complement = target - nums[i];\n    if (map.has(complement)) {\n      return [map.get(complement), i];\n    }\n    map.set(nums[i], i);\n  }\n  return [];\n}\n\nconsole.log(twoSum([2, 7, 11, 15], 9));`
-  );
-  const [isRunning, setIsRunning] = useState(false);
+  // Consume Zustand workspace store
+  const {
+    activeView,
+    role,
+    timeRemaining,
+    setActiveView,
+    toggleRole,
+    decrementTime,
+  } = useWorkspaceStore();
 
-  // Timer countdown simulation
-  const [secondsRemaining, setSecondsRemaining] = useState(300); // 5 minutes
-
+  // Decrement time every 1000ms
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSecondsRemaining((prev) => (prev > 0 ? prev - 1 : 0));
+    const timer = setInterval(() => {
+      decrementTime();
     }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(timer);
+  }, [decrementTime]);
 
   const formatTimer = (totalSeconds: number) => {
     const mins = Math.floor(totalSeconds / 60);
     const secs = totalSeconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const handleRunCode = () => {
-    setIsRunning(true);
-    setTimeout(() => {
-      setIsRunning(false);
-    }, 1000);
   };
 
   return (
@@ -101,10 +95,22 @@ export default function WorkspacePage({ params }: WorkspacePageProps) {
           <span>WebRTC P2P: <strong className="text-indigo-400 font-semibold">LiveKit v1.8</strong></span>
         </div>
 
-        {/* Right: Credits, Avatar, End Session */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        {/* Right: Credits, Avatar, Developer Role Toggle, End Session */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
           <CreditBadge />
           <UserAvatar fallback="DM" size="sm" />
+
+          {/* Developer Toggle Button to swap between Interviewer and Interviewee roles */}
+          <button
+            type="button"
+            onClick={toggleRole}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#5856D6]/20 hover:bg-[#5856D6]/30 border border-[#5856D6]/40 text-[#C7D2FE] text-xs font-semibold transition-all hover:scale-105 active:scale-95"
+            title="Developer Mode: Toggle Interviewer/Interviewee role"
+          >
+            <ArrowLeftRight className="w-3.5 h-3.5 text-[#818CF8]" />
+            <span>Role: <strong className="capitalize text-white">{role}</strong></span>
+          </button>
+
           <Link
             href="/dashboard"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/15 hover:bg-red-500/25 border border-red-500/30 text-red-300 text-xs font-semibold transition-all hover:scale-105"
@@ -123,17 +129,17 @@ export default function WorkspacePage({ params }: WorkspacePageProps) {
         <section className="col-span-8 h-full flex flex-col overflow-hidden bg-slate-950/60">
           {/* 3. Control Header above Left Pane */}
           <div className="h-12 shrink-0 px-4 flex items-center justify-between border-b border-white/10 bg-slate-900/40">
-            {/* Glowing text timer */}
+            {/* Glowing text timer formatted as MM:SS */}
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
                 <Clock className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
                 <span className="font-mono text-xs sm:text-sm font-bold text-amber-300 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]">
-                  Phase 1: Problem Intro - {formatTimer(secondsRemaining)}
+                  Phase 1: Problem Intro - {formatTimer(timeRemaining)}
                 </span>
               </div>
             </div>
 
-            {/* Toggle switch between "Code" and "Whiteboard" */}
+            {/* Shadcn-style Tabs wired to setActiveView */}
             <div className="flex items-center p-1 bg-slate-900 border border-white/10 rounded-lg">
               <button
                 type="button"
@@ -162,43 +168,17 @@ export default function WorkspacePage({ params }: WorkspacePageProps) {
             </div>
           </div>
 
-          {/* Main IDE or Whiteboard Canvas */}
+          {/* Main IDE or Whiteboard Canvas conditionally rendered */}
           <div className="flex-1 flex flex-col overflow-hidden relative">
             {activeView === 'code' ? (
-              /* Left Pane: Interviewee Surface + Code Editor */
+              /* Conditionally rendered Code Editor with IntervieweeSurface */
               <IntervieweeSurface>
-                {/* Editor Bar */}
-                <div className="h-9 shrink-0 px-4 bg-slate-900/90 border-b border-white/10 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
-                    <span className="text-[#818CF8]">solution.js</span>
-                    <span className="text-slate-600">|</span>
-                    <span className="text-slate-400 text-[11px]">JavaScript (Monaco Engine)</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={handleRunCode}
-                      disabled={isRunning}
-                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#5856D6] hover:bg-[#4E4CC4] text-white text-xs font-semibold shadow-[0_0_12px_rgba(88,86,214,0.4)] transition-all disabled:opacity-50"
-                    >
-                      <Play className="w-3 h-3 fill-current" />
-                      <span>{isRunning ? 'Running...' : 'Run Code'}</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Monaco Code Editor */}
-                <div className="h-[260px] w-full overflow-hidden">
-                  <CodeEditor
-                    language={selectedLanguage}
-                    value={code}
-                    onChange={(val) => setCode(val || '')}
-                  />
+                <div className="h-[280px] w-full overflow-hidden">
+                  <CodeEditor />
                 </div>
               </IntervieweeSurface>
             ) : (
-              /* Dynamically loaded Whiteboard component */
+              /* Conditionally rendered Whiteboard */
               <div className="flex-1 h-full overflow-hidden">
                 <Whiteboard roomId={roomId} />
               </div>
@@ -211,8 +191,11 @@ export default function WorkspacePage({ params }: WorkspacePageProps) {
         {/* ======================================================== */}
         <section className="col-span-4 h-full flex flex-col overflow-hidden bg-slate-950/90 divide-y divide-white/10">
           {/* Top Half: Audio/Video Grid using AVGrid wrapper */}
-          <div className="h-[46%] shrink-0 flex flex-col bg-slate-900/30 overflow-hidden">
-            <AVGrid />
+          <div className="h-[48%] shrink-0 flex flex-col bg-slate-900/30 overflow-hidden">
+            <AVGrid
+              interviewerName={role === 'interviewer' ? 'You (Interviewer)' : 'Alex Chen (Interviewer)'}
+              intervieweeName={role === 'interviewee' ? 'You (Interviewee)' : 'Alex Chen (Interviewee)'}
+            />
           </div>
 
           {/* Bottom Half: Interviewer Assessment Surface */}
