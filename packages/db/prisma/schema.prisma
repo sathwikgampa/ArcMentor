@@ -1,160 +1,28 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-// ─── User & Authentication ─────────────────────────────────────────
-
-model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  name          String
-  image         String?
-  passwordHash  String?
-  provider      AuthProvider @default(CREDENTIALS)
-  credits       Int       @default(2) // Initial balance: 2 starter credits
-  karmaScore    Float     @default(5.0) // 1.0 - 5.0 scale
-  role          UserRole  @default(CANDIDATE)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  // Relations
-  scheduledSlots   AvailabilitySlot[]
-  sessionsAsInterviewee  Session[] @relation("Interviewee")
-  sessionsAsInterviewer  Session[] @relation("Interviewer")
-  feedbackGiven    Feedback[] @relation("FeedbackAuthor")
-  feedbackReceived Feedback[] @relation("FeedbackRecipient")
-  creditLedger     CreditTransaction[]
-  penalties        Penalty[]
-  matchRequests    MatchRequest[]
-
-  @@index([email])
-  @@index([karmaScore])
-  @@map("users")
+generator client {
+  provider = "prisma-client-js"
 }
 
-enum AuthProvider {
-  CREDENTIALS
-  GOOGLE
-  GITHUB
-}
-
-enum UserRole {
+enum Role {
   CANDIDATE
   ADMIN
 }
 
-// ─── Availability & Scheduling ──────────────────────────────────────
-
-model AvailabilitySlot {
-  id        String   @id @default(cuid())
-  userId    String
-  startTime DateTime
-  endTime   DateTime
-  isBooked  Boolean  @default(false)
-  createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, startTime])
-  @@index([isBooked, startTime])
-  @@map("availability_slots")
-}
-
-// ─── Matchmaking ────────────────────────────────────────────────────
-
-model MatchRequest {
-  id            String       @id @default(cuid())
-  userId        String
-  domain        InterviewDomain
-  seniority     Seniority
-  targetTier    CompanyTier
-  language      ProgrammingLanguage
-  status        MatchStatus  @default(PENDING)
-  matchedAt     DateTime?
-  sessionId     String?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-
-  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  session Session? @relation(fields: [sessionId], references: [id])
-
-  @@index([status, domain, seniority])
-  @@index([userId])
-  @@map("match_requests")
-}
-
-enum InterviewDomain {
-  BACKEND
-  FRONTEND
-  SYSTEM_DESIGN
-  DSA
-  BEHAVIORAL
-  PM_TEARDOWN
-}
-
-enum Seniority {
-  ENTRY
-  MID
-  SENIOR
-  STAFF_PLUS
-}
-
-enum CompanyTier {
+enum TargetTier {
   FAANG
   HIGH_GROWTH_STARTUP
   ENTERPRISE
 }
 
-enum ProgrammingLanguage {
-  JAVA
-  PYTHON
-  CPP
-  TYPESCRIPT
-  GO
-}
-
-enum MatchStatus {
-  PENDING
-  MATCHED
-  EXPIRED
-  CANCELLED
-}
-
-// ─── Session & Workspace ────────────────────────────────────────────
-
-model Session {
-  id              String        @id @default(cuid())
-  intervieweeId   String
-  interviewerId   String
-  domain          InterviewDomain
-  seniority       Seniority
-  language        ProgrammingLanguage
-  status          SessionStatus @default(SCHEDULED)
-  scheduledAt     DateTime
-  startedAt       DateTime?
-  endedAt         DateTime?
-  roomToken       String?       @unique
-  rubricId        String?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-
-  interviewee   User           @relation("Interviewee", fields: [intervieweeId], references: [id])
-  interviewer   User           @relation("Interviewer", fields: [interviewerId], references: [id])
-  feedback      Feedback[]
-  matchRequests MatchRequest[]
-
-  @@index([status, scheduledAt])
-  @@index([intervieweeId])
-  @@index([interviewerId])
-  @@map("sessions")
+enum TransactionType {
+  EARNED
+  SPENT
+  PENALTY
+  STARTER_GRANT
 }
 
 enum SessionStatus {
@@ -165,75 +33,93 @@ enum SessionStatus {
   NO_SHOW
 }
 
-// ─── Feedback & Rubrics ─────────────────────────────────────────────
+model User {
+  id            String     @id @default(uuid())
+  email         String     @unique
+  passwordHash  String
+  fullName      String
+  role          Role       @default(CANDIDATE)
+  karmaScore    Float      @default(5.0)
+  creditBalance Int        @default(2)
+  preferredLang String     @default("Java")
+  targetTier    TargetTier @default(FAANG)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 
-model Feedback {
-  id                    String   @id @default(cuid())
-  sessionId             String
-  authorId              String
-  recipientId           String
-  technicalCorrectness  Int      // 1-5 scale
-  problemClarification  Int      // 1-5 scale
-  communication         Int      // 1-5 scale
-  behavioralExecution   Int      // 1-5 scale
-  keyStrengths          String   // Required qualitative field
-  areasForGrowth        String   // Required qualitative field
-  overallScore          Float    // Computed average
-  createdAt             DateTime @default(now())
+  creditLedgers           CreditLedger[]
+  slotAvailabilities      SlotAvailability[]
+  interviewsAsInterviewer InterviewSession[] @relation("InterviewerRelation")
+  interviewsAsInterviewee InterviewSession[] @relation("IntervieweeRelation")
+  feedbackAuthored        FeedbackRubric[]   @relation("AuthorRelation")
+  feedbackReceived        FeedbackRubric[]   @relation("RecipientRelation")
 
-  session   Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
-  author    User    @relation("FeedbackAuthor", fields: [authorId], references: [id])
-  recipient User    @relation("FeedbackRecipient", fields: [recipientId], references: [id])
-
-  @@unique([sessionId, authorId]) // One feedback per author per session
-  @@index([recipientId])
-  @@map("feedback")
+  @@map("users")
 }
 
-// ─── Credit Economy ─────────────────────────────────────────────────
-
-model CreditTransaction {
-  id          String          @id @default(cuid())
+model CreditLedger {
+  id          String          @id @default(uuid())
   userId      String
-  amount      Int             // +1 earn, -1 spend, -2 penalty
+  amount      Int
   type        TransactionType
   description String
-  sessionId   String?
   createdAt   DateTime        @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId, createdAt])
-  @@map("credit_transactions")
+  @@index([userId])
+  @@map("credit_ledgers")
 }
 
-enum TransactionType {
-  EARN          // Completed interview + submitted feedback
-  SPEND         // Booked session as interviewee
-  PENALTY       // No-show or late cancellation
-  BONUS         // Admin-granted or promotional credits
-}
-
-// ─── Penalties & Karma ──────────────────────────────────────────────
-
-model Penalty {
-  id          String      @id @default(cuid())
-  userId      String
-  type        PenaltyType
-  description String
-  creditsDeducted Int     @default(2)
-  karmaDeducted   Float   @default(0.5)
-  createdAt   DateTime    @default(now())
+model SlotAvailability {
+  id        String   @id @default(uuid())
+  userId    String
+  startTime DateTime
+  endTime   DateTime
+  domain    String
+  isBooked  Boolean  @default(false)
+  createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId])
-  @@map("penalties")
+  @@index([startTime, domain, isBooked])
+  @@map("slot_availabilities")
 }
 
-enum PenaltyType {
-  NO_SHOW
-  LATE_CANCELLATION
-  LOW_EFFORT_FEEDBACK
-  ABUSE_REPORT
+model InterviewSession {
+  id            String        @id @default(uuid())
+  interviewerId String
+  intervieweeId String
+  domain        String
+  scheduledAt   DateTime
+  status        SessionStatus @default(SCHEDULED)
+  roomToken     String        @unique @default(uuid())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  interviewer User            @relation("InterviewerRelation", fields: [interviewerId], references: [id])
+  interviewee User            @relation("IntervieweeRelation", fields: [intervieweeId], references: [id])
+  feedback    FeedbackRubric?
+
+  @@index([scheduledAt, status])
+  @@map("interview_sessions")
+}
+
+model FeedbackRubric {
+  id              String   @id @default(uuid())
+  sessionId       String   @unique
+  authorId        String
+  recipientId     String
+  techCorrectness Int
+  problemSolving  Int
+  communication   Int
+  codeQuality     Int
+  keyStrengths    String
+  areasForGrowth  String
+  createdAt       DateTime @default(now())
+
+  session   InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  author    User             @relation("AuthorRelation", fields: [authorId], references: [id])
+  recipient User             @relation("RecipientRelation", fields: [recipientId], references: [id])
+
+  @@map("feedback_rubrics")
 }
