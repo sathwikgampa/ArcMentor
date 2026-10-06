@@ -72,6 +72,9 @@ importers:
       '@arcmentor/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@p2p/db':
+        specifier: workspace:@arcmentor/db@*
+        version: link:../../packages/db
       bullmq:
         specifier: ^5.14.0
         version: 5.81.5

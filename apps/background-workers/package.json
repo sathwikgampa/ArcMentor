@@ -10,9 +10,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@arcmentor/db": "workspace:*",
+    "@p2p/db": "workspace:@arcmentor/db@*",
     "bullmq": "^5.14.0",
     "ioredis": "^5.4.1",
-    "@arcmentor/db": "workspace:*",
     "nodemailer": "^6.9.15"
   },
   "devDependencies": {
