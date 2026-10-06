@@ -36,10 +36,10 @@ export default function HomePage() {
         <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           {/* Primary CTA: Start Practicing */}
           <Link
-            href="/schedule"
+            href="/workspace/demo-1"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white bg-[#5856D6] hover:bg-[#4E4CC4] shadow-[0_0_24px_rgba(88,86,214,0.5)] border border-[#5856D6]/50 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 text-sm sm:text-base group"
           >
-            <span>Start Practicing</span>
+            <span>Start Practicing (Live Demo)</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
 
