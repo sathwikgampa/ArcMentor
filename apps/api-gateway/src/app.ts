@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { authRouter } from './routes/auth.routes';
 import { creditRouter } from './routes/credit.routes';
+import { slotRouter } from './routes/slot.routes';
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.get('/health', (_req, res) => {
 // Mount Routes
 app.use('/api/auth', authRouter);
 app.use('/api/credits', creditRouter);
+app.use('/api/slots', slotRouter);
 
 // Global Error Handler Middleware
 app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
