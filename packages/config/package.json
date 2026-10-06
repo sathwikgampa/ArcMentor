@@ -2,6 +2,12 @@
   "name": "@arcmentor/config",
   "version": "0.1.0",
   "private": true,
+  "main": "./tailwind-preset.js",
+  "exports": {
+    "./tailwind-preset": "./tailwind-preset.js",
+    "./eslint-preset": "./eslint-preset.js",
+    "./*": "./*"
+  },
   "files": [
     "eslint-preset.js",
     "tailwind-preset.js",
