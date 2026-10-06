@@ -5,5 +5,5 @@
     "declarationMap": false,
     "outDir": "./dist"
   },
-  "include": ["src/**/*"]
+  "include": ["src/server.ts", "src/index.ts"]
 }

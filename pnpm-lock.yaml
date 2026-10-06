@@ -189,28 +189,37 @@ importers:
 
   apps/ws-server:
     dependencies:
-      '@arcmentor/security':
+      '@arcmentor/db':
         specifier: workspace:*
-        version: link:../../packages/security
-      '@arcmentor/types':
-        specifier: workspace:*
-        version: link:../../packages/types
+        version: link:../../packages/db
+      '@p2p/db':
+        specifier: workspace:@arcmentor/db@*
+        version: link:../../packages/db
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.6.1
       jsonwebtoken:
         specifier: ^9.0.0
         version: 9.0.3
-      socket.io:
-        specifier: ^4.8.0
-        version: 4.8.4
-      y-socket.io:
-        specifier: ^1.0.0
-        version: 1.1.3(yjs@13.6.33)
+      ws:
+        specifier: ^8.18.0
+        version: 8.21.3
+      y-websocket:
+        specifier: ^2.0.4
+        version: 2.1.0(yjs@13.6.33)
       yjs:
-        specifier: ^13.6.0
+        specifier: ^13.6.20
         version: 13.6.33
     devDependencies:
       '@types/jsonwebtoken':
         specifier: ^9.0.0
         version: 9.0.10
+      '@types/node':
+        specifier: ^22.5.0
+        version: 22.20.5
+      '@types/ws':
+        specifier: ^8.5.12
+        version: 8.18.2
       tsx:
         specifier: ^4.19.0
         version: 4.23.15
@@ -751,9 +760,6 @@ packages:
   '@protobufjs/utf8@1.1.2':
     resolution: {integrity: sha512-b1UQwcEZ4yCnMCD8DAL1VlbvBJE9/IX4FTIp7BG1xYpf29SLazLSrqUkj4w7Y5y7cCVP6E5tcqqcI0xemPkHug==}
 
-  '@socket.io/component-emitter@3.1.2':
-    resolution: {integrity: sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==}
-
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
@@ -957,6 +963,9 @@ packages:
 
   asn1@0.2.6:
     resolution: {integrity: sha512-ix/FxPn0MDjeyJ7i/yoHGFt/EX6LyNbxSEhPPXODPL+KB0VPk86UYfL0lMdy+KCnv+fmvIzySwaK5COwqVbWTQ==}
+
+  async-limiter@1.0.1:
+    resolution: {integrity: sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==}
 
   autoprefixer@10.6.1:
     resolution: {integrity: sha512-cL1Qz6ADZhcEbny/8HPfe99J6HhNoYtpX2LFLIbhgGE7Q1hlQVkYFdetDN7Id3KiQxhDrHwzlHr/YQCnZ8+xSA==}
@@ -1306,17 +1315,6 @@ packages:
   end-of-stream@1.4.5:
     resolution: {integrity: sha512-ooEGc6HP26xXq/N+GCGOT0JKCLDGrq2bQUZrQ7gyrJiZANJ/8YDTxTpQBXGMn+WbIQXNVpyWymm7KYVICQnyOg==}
 
-  engine.io-client@6.6.7:
-    resolution: {integrity: sha512-GyAvmPA7gnRCpDQbYACAy79Lg4ewevrmaPzySZz0OVvgyZc3gEfLLqPTYk8wVBScjOEpM9ZO4KryyFpVItjGEA==}
-
-  engine.io-parser@5.2.3:
-    resolution: {integrity: sha512-HqD3yTBfnBxIrbnM1DoD6Pcq8NECnh8d4As1Qgh0z5Gg3jRRIqijury0CL3ghu/edArpUYiYqQiDUQBIs4np3Q==}
-    engines: {node: '>=10.0.0'}
-
-  engine.io@6.6.11:
-    resolution: {integrity: sha512-z34mGpLoY/82ZbkX1LqGMIaf3wjVMPL6gVC681QDqnmzJ26synI8qAE32P+a7UazmpJZ8UGrFIeAavgRfXzYrg==}
-    engines: {node: '>=10.2.0'}
-
   errno@0.1.8:
     resolution: {integrity: sha512-dJ6oBr5SQ1VSd9qkk7ByRgb/1SH4JZjCHSW/mr63/QcXO9zLVxvJ6Oy13nio03rxpSnVDDjFor75SjVeZWPW/A==}
     hasBin: true
@@ -1596,6 +1594,9 @@ packages:
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
+
+  lodash.debounce@4.0.8:
+    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
   lodash.includes@4.3.0:
     resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
@@ -2078,21 +2079,6 @@ packages:
   simple-swizzle@0.2.4:
     resolution: {integrity: sha512-nAu1WFPQSMNr2Zn9PGSZK9AGn4t/y97lEm+MXTtUDwfP0ksAIX4nO+6ruD9Jwut4C49SB1Ws+fbXsm/yScWOHw==}
 
-  socket.io-adapter@2.5.8:
-    resolution: {integrity: sha512-6Oy52pbg+kvdCVvjcN+FnY7BvxZ7cIHNScbvztT/It5d0vbwoJoVZmF2gjJmnV0/4WlXRfG15zc45ySk9Ah8bw==}
-
-  socket.io-client@4.8.4:
-    resolution: {integrity: sha512-7wjKAvVXYOJsbmUgkWbnhPD4bFpkqrUR0++XOjpGFmqDqsqV1CI93VTraeExLxpjxEqrWgFoSRZu1ihjLWfkAA==}
-    engines: {node: '>=10.0.0'}
-
-  socket.io-parser@4.2.7:
-    resolution: {integrity: sha512-IH/iSeO9T6gz1KkFleGDWkG9N3dl4jXVYUtMhIqH10Md0ttMer8nUNWiP1DKuNrybD2xBrixLJdCC9J6ECoYkg==}
-    engines: {node: '>=10.0.0'}
-
-  socket.io@4.8.4:
-    resolution: {integrity: sha512-9ZV9zg8vN8hO3Y25DhR7nUkJ1VDnBhq5O/JrXhFT9s6+F0gqytSASTHVfCFc2mJXaTfARroErplXlzFWwETZqQ==}
-    engines: {node: '>=10.2.0'}
-
   source-map-js@1.2.2:
     resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
@@ -2275,6 +2261,17 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
+  ws@6.2.6:
+    resolution: {integrity: sha512-XTrf1gv7kXoVf1hbC3PAyAiPgR8Wz1blcrYIjEsUmr08BLksT41R8KbjmS9408C2ERx7v1JDLD/BkpLEttjfKA==}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
   ws@8.21.3:
     resolution: {integrity: sha512-201TZ/kPWxoPr/OKWjquZR1SWKXcvxdH+e1xrx89b3YbmzLMFCLfnaG1HFIgWzJOEWZ7MvpK++odZufgYR50Rw==}
     engines: {node: '>=10.0.0'}
@@ -2286,10 +2283,6 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
-
-  xmlhttprequest-ssl@2.1.2:
-    resolution: {integrity: sha512-TEU+nJVUUnA4CYJFLvK5X9AOeH4KvDvhIfm0vV1GaQRtchnG0hgK5p8hw/xjv8cunWYCsiPCSDzObPyhEwq3KQ==}
-    engines: {node: '>=0.4.0'}
 
   xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
@@ -2306,8 +2299,9 @@ packages:
     peerDependencies:
       yjs: ^13.0.0
 
-  y-socket.io@1.1.3:
-    resolution: {integrity: sha512-rHalJcJjHWG3TNKJN1rcvJBDsVCdDi+3ms05JQ33+JUFzQ9pseD9SvQ7bdPnT9Ztn5t7THG/0/2MxyMdjlRHXQ==}
+  y-websocket@2.1.0:
+    resolution: {integrity: sha512-WHYDRqomaGkkaujtowCDwL8KYk+t1zQCGIgKyvxvchhjTQlMgWXRHJK+FDEcWmHA7I7o/4fy0eniOrtmz0e4mA==}
+    engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     hasBin: true
     peerDependencies:
       yjs: ^13.5.6
@@ -2668,8 +2662,6 @@ snapshots:
 
   '@protobufjs/utf8@1.1.2': {}
 
-  '@socket.io/component-emitter@3.1.2': {}
-
   '@standard-schema/spec@1.1.0': {}
 
   '@swc/counter@0.1.3': {}
@@ -2831,6 +2823,7 @@ snapshots:
       level-concat-iterator: 2.0.1
       level-supports: 1.0.1
       xtend: 4.0.2
+    optional: true
 
   abstract-leveldown@6.3.0:
     dependencies:
@@ -2839,6 +2832,7 @@ snapshots:
       level-concat-iterator: 2.0.1
       level-supports: 1.0.1
       xtend: 4.0.2
+    optional: true
 
   accepts@1.3.8:
     dependencies:
@@ -2873,6 +2867,9 @@ snapshots:
   asn1@0.2.6:
     dependencies:
       safer-buffer: 2.1.2
+
+  async-limiter@1.0.1:
+    optional: true
 
   autoprefixer@10.6.1(postcss@8.5.28):
     dependencies:
@@ -3137,6 +3134,7 @@ snapshots:
     dependencies:
       abstract-leveldown: 6.2.3
       inherits: 2.0.4
+    optional: true
 
   defu@6.1.7: {}
 
@@ -3216,44 +3214,16 @@ snapshots:
       inherits: 2.0.4
       level-codec: 9.0.2
       level-errors: 2.0.1
+    optional: true
 
   end-of-stream@1.4.5:
     dependencies:
       once: 1.4.0
 
-  engine.io-client@6.6.7:
-    dependencies:
-      '@socket.io/component-emitter': 3.1.2
-      debug: 4.4.3
-      engine.io-parser: 5.2.3
-      ws: 8.21.3
-      xmlhttprequest-ssl: 2.1.2
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
-  engine.io-parser@5.2.3: {}
-
-  engine.io@6.6.11:
-    dependencies:
-      '@types/cors': 2.8.19
-      '@types/node': 22.20.5
-      '@types/ws': 8.18.2
-      accepts: 1.3.8
-      cookie: 0.7.2
-      cors: 2.8.6
-      debug: 4.4.3
-      engine.io-parser: 5.2.3
-      ws: 8.21.3
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
   errno@0.1.8:
     dependencies:
       prr: 1.0.1
+    optional: true
 
   es-define-property@1.0.1: {}
 
@@ -3450,7 +3420,8 @@ snapshots:
 
   ieee754@1.2.1: {}
 
-  immediate@3.3.0: {}
+  immediate@3.3.0:
+    optional: true
 
   inherits@2.0.4: {}
 
@@ -3528,18 +3499,22 @@ snapshots:
   level-codec@9.0.2:
     dependencies:
       buffer: 5.7.1
+    optional: true
 
-  level-concat-iterator@2.0.1: {}
+  level-concat-iterator@2.0.1:
+    optional: true
 
   level-errors@2.0.1:
     dependencies:
       errno: 0.1.8
+    optional: true
 
   level-iterator-stream@4.0.2:
     dependencies:
       inherits: 2.0.4
       readable-stream: 3.6.2
       xtend: 4.0.2
+    optional: true
 
   level-js@5.0.2:
     dependencies:
@@ -3547,27 +3522,32 @@ snapshots:
       buffer: 5.7.1
       inherits: 2.0.4
       ltgt: 2.2.1
+    optional: true
 
   level-packager@5.1.1:
     dependencies:
       encoding-down: 6.3.0
       levelup: 4.4.0
+    optional: true
 
   level-supports@1.0.1:
     dependencies:
       xtend: 4.0.2
+    optional: true
 
   level@6.0.1:
     dependencies:
       level-js: 5.0.2
       level-packager: 5.1.1
       leveldown: 5.6.0
+    optional: true
 
   leveldown@5.6.0:
     dependencies:
       abstract-leveldown: 6.2.3
       napi-macros: 2.0.0
       node-gyp-build: 4.1.1
+    optional: true
 
   levelup@4.4.0:
     dependencies:
@@ -3576,6 +3556,7 @@ snapshots:
       level-iterator-stream: 4.0.2
       level-supports: 1.0.1
       xtend: 4.0.2
+    optional: true
 
   lib0@0.2.119:
     dependencies:
@@ -3586,6 +3567,8 @@ snapshots:
   lines-and-columns@1.2.4: {}
 
   lodash.camelcase@4.3.0: {}
+
+  lodash.debounce@4.0.8: {}
 
   lodash.includes@4.3.0: {}
 
@@ -3609,7 +3592,8 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  ltgt@2.2.1: {}
+  ltgt@2.2.1:
+    optional: true
 
   lucide-react@0.460.0(react@19.3.0):
     dependencies:
@@ -3675,7 +3659,8 @@ snapshots:
 
   nanoid@3.3.19: {}
 
-  napi-macros@2.0.0: {}
+  napi-macros@2.0.0:
+    optional: true
 
   negotiator@0.6.3: {}
 
@@ -3719,7 +3704,8 @@ snapshots:
       detect-libc: 2.1.2
     optional: true
 
-  node-gyp-build@4.1.1: {}
+  node-gyp-build@4.1.1:
+    optional: true
 
   node-releases@2.0.57: {}
 
@@ -3861,7 +3847,8 @@ snapshots:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
 
-  prr@1.0.1: {}
+  prr@1.0.1:
+    optional: true
 
   pump@3.0.4:
     dependencies:
@@ -4067,46 +4054,6 @@ snapshots:
     dependencies:
       is-arrayish: 0.3.4
     optional: true
-
-  socket.io-adapter@2.5.8:
-    dependencies:
-      debug: 4.4.3
-      ws: 8.21.3
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
-  socket.io-client@4.8.4:
-    dependencies:
-      '@socket.io/component-emitter': 3.1.2
-      debug: 4.4.3
-      engine.io-client: 6.6.7
-      socket.io-parser: 4.2.7
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
-  socket.io-parser@4.2.7:
-    dependencies:
-      '@socket.io/component-emitter': 3.1.2
-      debug: 4.4.3
-    transitivePeerDependencies:
-      - supports-color
-
-  socket.io@4.8.4:
-    dependencies:
-      accepts: 1.3.8
-      cors: 2.8.6
-      debug: 4.4.3
-      engine.io: 6.6.11
-      socket.io-adapter: 2.5.8
-      socket.io-parser: 4.2.7
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
 
   source-map-js@1.2.2: {}
 
@@ -4318,34 +4265,39 @@ snapshots:
 
   wrappy@1.0.2: {}
 
+  ws@6.2.6:
+    dependencies:
+      async-limiter: 1.0.1
+    optional: true
+
   ws@8.21.3: {}
 
-  xmlhttprequest-ssl@2.1.2: {}
-
-  xtend@4.0.2: {}
+  xtend@4.0.2:
+    optional: true
 
   y-leveldb@0.1.2(yjs@13.6.33):
     dependencies:
       level: 6.0.1
       lib0: 0.2.119
       yjs: 13.6.33
+    optional: true
 
   y-protocols@1.0.7(yjs@13.6.33):
     dependencies:
       lib0: 0.2.119
       yjs: 13.6.33
 
-  y-socket.io@1.1.3(yjs@13.6.33):
+  y-websocket@2.1.0(yjs@13.6.33):
     dependencies:
       lib0: 0.2.119
-      socket.io: 4.8.4
-      socket.io-client: 4.8.4
-      y-leveldb: 0.1.2(yjs@13.6.33)
+      lodash.debounce: 4.0.8
       y-protocols: 1.0.7(yjs@13.6.33)
       yjs: 13.6.33
+    optionalDependencies:
+      ws: 6.2.6
+      y-leveldb: 0.1.2(yjs@13.6.33)
     transitivePeerDependencies:
       - bufferutil
-      - supports-color
       - utf-8-validate
 
   y18n@5.0.8: {}
