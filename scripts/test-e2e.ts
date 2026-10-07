@@ -53,6 +53,7 @@ async function runE2ETests() {
     const executeRes = await axios.post(`${EXECUTOR_URL}/api/execute`, {
       language: 'python',
       code: 'print("P2P System Operational")',
+      timeoutMs: 5000, // Pass 5s for cold start allowance
     });
 
     if (!executeRes.data.output?.includes('P2P System Operational')) {
