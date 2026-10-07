@@ -2,22 +2,30 @@
   "name": "arcmentor",
   "version": "0.1.0",
   "private": true,
-  "description": "Peer-to-Peer Mock Interview Matcher & Feedback Repository",
+  "description": "Peer-to-Peer Mock Interview Matcher & Feedback Platform",
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "type-check": "turbo run type-check",
-    "test": "turbo run test",
+    "dev": "pnpm --parallel --filter \"./apps/*\" dev",
+    "build": "pnpm --filter \"./packages/*\" build && pnpm --parallel --filter \"./apps/*\" build",
+    "lint": "pnpm --parallel --filter \"./apps/*\" --filter \"./packages/*\" lint",
+    "check-types": "pnpm --parallel --filter \"./apps/*\" --filter \"./packages/*\" type-check",
+    "type-check": "pnpm --parallel --filter \"./apps/*\" --filter \"./packages/*\" type-check",
+    "test": "pnpm --parallel --filter \"./apps/*\" --filter \"./packages/*\" test",
+    "test:e2e": "tsx scripts/test-e2e.ts",
+    "db:migrate": "pnpm --filter @p2p/db run db:migrate",
+    "db:seed": "pnpm --filter @p2p/db run db:seed",
+    "db:generate": "pnpm --filter @p2p/db run db:generate",
+    "db:push": "pnpm --filter @p2p/db run db:push",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
-    "db:generate": "turbo run db:generate",
-    "db:push": "turbo run db:push",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "clean": "pnpm --parallel clean && rm -rf node_modules"
   },
   "devDependencies": {
+    "@types/ws": "^8.5.12",
+    "axios": "^1.7.9",
     "prettier": "^3.3.0",
-    "turbo": "^2.3.0"
+    "tsx": "^4.19.0",
+    "turbo": "^2.3.0",
+    "ws": "^8.18.0"
   },
   "engines": {
     "node": ">=20.0.0",
