@@ -10,9 +10,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcmentor/db": "workspace:*",
+    "@arcmentor/db": "workspace:@p2p/db@*",
     "@arcmentor/types": "workspace:*",
     "@monaco-editor/react": "^4.7.0",
+    "@p2p/db": "workspace:*",
     "@tanstack/react-query": "^5.60.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

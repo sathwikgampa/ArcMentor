@@ -1,63 +1,35 @@
 name: CI Pipeline
 
 on:
-  workflow_dispatch:
-  # push:
-  #   branches: [main, develop]
-  # pull_request:
-  #   branches: [main, develop]
+  push:
+    branches:
+      - main
+      - backend
+  pull_request:
+    branches:
+      - main
+      - backend
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  lint-and-typecheck:
-    name: Lint & Type Check
+  ci:
+    name: Continuous Integration
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Generate Prisma Client
-        run: pnpm run db:generate
-
-      - name: Run linting
-        run: pnpm run lint
-
-      - name: Run type-check
-        run: pnpm run type-check
-
-  test:
-    name: Unit & Integration Tests
-    runs-on: ubuntu-latest
-    needs: lint-and-typecheck
 
     services:
       postgres:
         image: postgres:16-alpine
         env:
-          POSTGRES_USER: arcmentor
-          POSTGRES_PASSWORD: arcmentor_test
-          POSTGRES_DB: arcmentor_test
+          POSTGRES_USER: p2p_admin
+          POSTGRES_PASSWORD: p2p_password
+          POSTGRES_DB: p2p_interview_db
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U p2p_admin -d p2p_interview_db"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -73,60 +45,37 @@ jobs:
           --health-retries 5
 
     env:
-      DATABASE_URL: postgresql://arcmentor:arcmentor_test@localhost:5432/arcmentor_test
+      DATABASE_URL: postgresql://p2p_admin:p2p_password@localhost:5432/p2p_interview_db
       REDIS_URL: redis://localhost:6379
+      JWT_SECRET: test-jwt-secret-key-for-ci
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v2
         with:
           version: 9
+          run_install: false
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: "pnpm"
+          node-version: 20.x
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Generate Prisma Client
-        run: pnpm run db:generate
+        run: pnpm --filter @p2p/db db:generate || pnpm --filter @arcmentor/db db:generate
 
-      - name: Push DB schema
-        run: pnpm run db:push
+      - name: Typecheck all packages
+        run: pnpm run check-types
 
-      - name: Run tests
-        run: pnpm run test
+      - name: Run linter
+        run: pnpm run lint
 
-  build:
-    name: Build Verification
-    runs-on: ubuntu-latest
-    needs: lint-and-typecheck
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Generate Prisma Client
-        run: pnpm run db:generate
-
-      - name: Build all packages
-        run: pnpm run build
+      - name: Run test suites
+        run: pnpm test

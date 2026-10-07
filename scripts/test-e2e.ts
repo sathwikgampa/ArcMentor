@@ -58,29 +58,19 @@ async function runE2ETests() {
     // 4️⃣ Availability Slot Submission (UTC ISO Generation)
     console.log('4️⃣ Submitting Overlapping Availability Slots...');
     const now = new Date();
-    const start = new Date(
-      Date.UTC(
-        now.getUTCFullYear(),
-        now.getUTCMonth(),
-        now.getUTCDate(),
-        now.getUTCHours() + 2,
-        0,
-        0,
-        0,
-      ),
-    );
+    const start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + 2, 0, 0, 0));
     const end = new Date(start.getTime() + 60 * 60 * 1000);
 
     const slotA = await axios.post(
       `${API_URL}/api/slots`,
       { startTime: start.toISOString(), endTime: end.toISOString(), domain: 'DSA' },
-      { headers: { Authorization: `Bearer ${tokenA}` } },
+      { headers: { Authorization: `Bearer ${tokenA}` } }
     );
 
     const slotB = await axios.post(
       `${API_URL}/api/slots`,
       { startTime: start.toISOString(), endTime: end.toISOString(), domain: 'DSA' },
-      { headers: { Authorization: `Bearer ${tokenB}` } },
+      { headers: { Authorization: `Bearer ${tokenB}` } }
     );
 
     const slotAId = slotA.data.id || slotA.data.slot?.id;
@@ -107,9 +97,7 @@ async function runE2ETests() {
       });
     });
 
-    console.log(
-      '\n🎉 ALL INTEGRATION TESTS PASSED SUCCESSFULLY! The backend is 100% production-ready!',
-    );
+    console.log('\n🎉 ALL INTEGRATION TESTS PASSED SUCCESSFULLY! The backend is 100% production-ready!');
     process.exit(0);
   } catch (error: any) {
     console.error('\n❌ E2E Integration Test Failed:');

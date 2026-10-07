@@ -16,6 +16,9 @@
     "type-check": {
       "dependsOn": ["^build"]
     },
+    "check-types": {
+      "dependsOn": ["^build"]
+    },
     "test": {
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"]

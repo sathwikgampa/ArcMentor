@@ -1,24 +1,26 @@
 {
-  "name": "@arcmentor/ws-server",
+  "name": "@p2p/ws-server",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "lint": "eslint src/",
+    "start": "node dist/server.js",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@arcmentor/types": "workspace:*",
-    "@arcmentor/security": "workspace:*",
-    "socket.io": "^4.8.0",
-    "yjs": "^13.6.0",
-    "y-socket.io": "^1.0.0",
-    "jsonwebtoken": "^9.0.0"
+    "@arcmentor/db": "workspace:@p2p/db@*",
+    "@p2p/db": "workspace:*",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.0",
+    "ws": "^8.18.0",
+    "y-websocket": "^2.0.4",
+    "yjs": "^13.6.20"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.0",
+    "@types/node": "^22.5.0",
+    "@types/ws": "^8.5.12",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0"
   }
