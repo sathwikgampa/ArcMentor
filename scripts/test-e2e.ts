@@ -65,8 +65,17 @@ async function runE2ETests() {
     // TEST 4: Availability Slot Submission
     // ----------------------------------------------------
     console.log('4️⃣ Submitting Overlapping Availability Slots...');
-    const startTime = new Date(Date.now() + 3600000).toISOString(); // 1 hour ahead
-    const endTime = new Date(Date.now() + 7200000).toISOString(); // 2 hours ahead
+
+    // Top of the next hour
+    const start = new Date();
+    start.setHours(start.getHours() + 2, 0, 0, 0);
+
+    // Exactly 1 hour later
+    const end = new Date(start);
+    end.setHours(end.getHours() + 1);
+
+    const startTime = start.toISOString();
+    const endTime = end.toISOString();
 
     const slotA = await axios.post(
       `${API_URL}/api/slots`,
@@ -80,10 +89,7 @@ async function runE2ETests() {
       { headers: { Authorization: `Bearer ${tokenB}` } },
     );
 
-    const slotAId = slotA.data.id || slotA.data.slot?.id;
-    const slotBId = slotB.data.id || slotB.data.slot?.id;
-
-    if (!slotAId || !slotBId) {
+    if (!slotA.data.id || !slotB.data.id) {
       throw new Error('Slot creation failed');
     }
     console.log('   ✅ Slot availabilities successfully queued in Redis!\n');
