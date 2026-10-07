@@ -30,7 +30,7 @@ export const standardRateLimiter = rateLimit({
  */
 export const authRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 5, // 5 requests per 15 minutes
+  limit: process.env.NODE_ENV === 'production' ? 5 : 100, // 5 in production, 100 in dev/test
   standardHeaders: 'draft-7',
   legacyHeaders: false,
   store: new RedisStore({

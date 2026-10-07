@@ -66,13 +66,20 @@ async function runE2ETests() {
     // ----------------------------------------------------
     console.log('4️⃣ Submitting Overlapping Availability Slots...');
 
-    // Top of the next hour
-    const start = new Date();
-    start.setHours(start.getHours() + 2, 0, 0, 0);
-
-    // Exactly 1 hour later
-    const end = new Date(start);
-    end.setHours(end.getHours() + 1);
+    const now = new Date();
+    // Round to next clean hour
+    const start = new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        now.getUTCHours() + 2,
+        0,
+        0,
+        0,
+      ),
+    );
+    const end = new Date(start.getTime() + 60 * 60 * 1000); // exactly 3,600,000 ms later
 
     const startTime = start.toISOString();
     const endTime = end.toISOString();

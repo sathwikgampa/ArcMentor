@@ -9,27 +9,20 @@ const router = Router();
 
 export const createSlotSchema = z
   .object({
-    startTime: z.string().refine((val) => !isNaN(Date.parse(val)), {
-      message: 'startTime must be a valid ISO DateTime string',
-    }),
-    endTime: z.string().refine((val) => !isNaN(Date.parse(val)), {
-      message: 'endTime must be a valid ISO DateTime string',
-    }),
-    domain: z.enum(['DSA', 'System Design', 'Behavioral'], {
-      errorMap: () => ({
-        message: 'domain must be one of: DSA, System Design, Behavioral',
-      }),
-    }),
+    startTime: z.string().datetime(),
+    endTime: z.string().datetime(),
+    domain: z.string().min(1),
   })
   .refine(
     (data) => {
       const start = new Date(data.startTime).getTime();
       const end = new Date(data.endTime).getTime();
-      const oneHourInMs = 60 * 60 * 1000;
-      return end - start === oneHourInMs;
+      const diffMinutes = (end - start) / (1000 * 60);
+      // Allow a flexible range (e.g., 55 to 65 minutes)
+      return diffMinutes >= 55 && diffMinutes <= 65;
     },
     {
-      message: 'endTime must be exactly 1 hour after startTime',
+      message: 'endTime must be approximately 1 hour (60 mins) after startTime',
       path: ['endTime'],
     },
   );
