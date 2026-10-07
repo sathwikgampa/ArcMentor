@@ -8,11 +8,13 @@ const router = Router();
 // GET /api/rooms/:roomToken/token
 router.get('/:roomToken/token', authenticateJWT, async (req, res, next) => {
   try {
-    const { roomToken } = req.params;
+    const rawRoomToken = req.params.roomToken;
 
-    if (!roomToken) {
+    if (!rawRoomToken) {
       return res.status(400).json({ error: 'Missing roomToken parameter' });
     }
+
+    const roomToken = Array.isArray(rawRoomToken) ? rawRoomToken[0] : rawRoomToken;
 
     // Find the session associated with the roomToken
     const session = await db.interviewSession.findUnique({
@@ -43,9 +45,14 @@ router.get('/:roomToken/token', authenticateJWT, async (req, res, next) => {
       });
     }
 
+    const sessionWithRelations = session as typeof session & {
+      interviewer?: { id: string; fullName: string };
+      interviewee?: { id: string; fullName: string };
+    };
+
     const participantName = isInterviewer
-      ? session.interviewer.fullName
-      : session.interviewee.fullName;
+      ? sessionWithRelations.interviewer?.fullName || 'Interviewer'
+      : sessionWithRelations.interviewee?.fullName || 'Interviewee';
 
     const apiKey = process.env.LIVEKIT_API_KEY || 'devkey';
     const apiSecret = process.env.LIVEKIT_API_SECRET || 'secret';
