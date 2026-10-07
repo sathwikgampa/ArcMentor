@@ -32,6 +32,9 @@ importers:
       express:
         specifier: ^4.21.0
         version: 4.22.3
+      express-rate-limit:
+        specifier: ^7.4.1
+        version: 7.5.1(express@4.22.3)
       helmet:
         specifier: ^8.0.0
         version: 8.3.0
@@ -44,6 +47,9 @@ importers:
       livekit-server-sdk:
         specifier: ^2.9.0
         version: 2.19.1
+      rate-limit-redis:
+        specifier: ^4.2.0
+        version: 4.3.1(express-rate-limit@7.5.1(express@4.22.3))
       zod:
         specifier: ^3.23.0
         version: 3.25.76
@@ -1260,6 +1266,12 @@ packages:
   eventemitter3@4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
 
+  express-rate-limit@7.5.1:
+    resolution: {integrity: sha512-7iN8iPMDzOMHPUYllBEsQdWVB6fPDMPqwjBaFrgr4Jgr/+okjvzAy+UHlYYL/Vs0OsOrMkwS6PJDkFlJwoxUnw==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      express: '>= 4.11'
+
   express@4.22.3:
     resolution: {integrity: sha512-Bdcs4+3qlpVlx2NRn6fgX2Ue2/gGRaPeawebgclM0ERSCqDpA+owF1fdPwjJUTAJWMTuAaxjDf+hzb0/4eKvvw==}
     engines: {node: '>= 0.10.0'}
@@ -1830,6 +1842,12 @@ packages:
   range-parser@1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
+
+  rate-limit-redis@4.3.1:
+    resolution: {integrity: sha512-+a1zU8+D7L8siDK9jb14refQXz60vq427VuiplgnaLk9B2LnvGe/APLTfhwb4uNIL7eWVknh8GnRp/unCj+lMA==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      express-rate-limit: '>= 6'
 
   raw-body@2.5.3:
     resolution: {integrity: sha512-s4VSOf6yN0rvbRZGxs8Om5CWj6seneMwK3oDb4lWDH0UPhWcxwOWw5+qk24bxq87szX1ydrwylIOp2uG1ojUpA==}
@@ -2982,6 +3000,10 @@ snapshots:
 
   eventemitter3@4.0.7: {}
 
+  express-rate-limit@7.5.1(express@4.22.3):
+    dependencies:
+      express: 4.22.3
+
   express@4.22.3:
     dependencies:
       accepts: 1.3.8
@@ -3548,6 +3570,10 @@ snapshots:
   queue-microtask@1.2.3: {}
 
   range-parser@1.2.1: {}
+
+  rate-limit-redis@4.3.1(express-rate-limit@7.5.1(express@4.22.3)):
+    dependencies:
+      express-rate-limit: 7.5.1(express@4.22.3)
 
   raw-body@2.5.3:
     dependencies:
