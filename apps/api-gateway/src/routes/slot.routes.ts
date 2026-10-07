@@ -74,8 +74,10 @@ router.post('/', authenticateJWT, validateRequest(createSlotSchema), async (req,
     await redis.zadd(`matchmaking_queue:${domain}`, score, slot.id);
 
     return res.status(201).json({
+      id: slot.id,
       message: 'Slot created successfully',
       slot,
+      ...slot,
     });
   } catch (error) {
     next(error);

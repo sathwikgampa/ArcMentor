@@ -10,8 +10,9 @@
     "check-types": "turbo run type-check",
     "type-check": "turbo run type-check",
     "test": "turbo run test",
-    "db:migrate": "pnpm --filter @p2p/db run db:migrate || pnpm --filter @arcmentor/db run db:migrate",
-    "db:seed": "pnpm --filter @p2p/db run db:seed || pnpm --filter @arcmentor/db run db:seed",
+    "test:e2e": "tsx scripts/test-e2e.ts",
+    "db:migrate": "pnpm --filter @p2p/db run db:migrate",
+    "db:seed": "pnpm --filter @p2p/db run db:seed",
     "db:generate": "turbo run db:generate",
     "db:push": "turbo run db:push",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
@@ -19,8 +20,12 @@
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
+    "@types/ws": "^8.5.12",
+    "axios": "^1.7.9",
     "prettier": "^3.3.0",
-    "turbo": "^2.3.0"
+    "tsx": "^4.19.0",
+    "turbo": "^2.3.0",
+    "ws": "^8.18.0"
   },
   "engines": {
     "node": ">=20.0.0",
