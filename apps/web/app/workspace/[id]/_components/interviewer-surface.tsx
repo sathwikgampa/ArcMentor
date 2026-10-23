@@ -23,7 +23,7 @@ import { useWorkspaceStore } from '@/lib/store/workspace-store';
 
 export function InterviewerSurface() {
   const { addReaction } = useWorkspaceStore();
-  
+
   // Accordion state
   const [hintsOpen, setHintsOpen] = useState(true);
   const [activeHintIndex, setActiveHintIndex] = useState<number | null>(0);
@@ -38,7 +38,7 @@ export function InterviewerSurface() {
   });
 
   const [interviewerNotes, setInterviewerNotes] = useState<string>(
-    'Candidate quickly verified input boundaries and correctly selected hash map approach with O(N) time complexity.'
+    'Candidate quickly verified input boundaries and correctly selected hash map approach with O(N) time complexity.',
   );
 
   const [selectedTags, setSelectedTags] = useState<string[]>([
@@ -93,9 +93,15 @@ export function InterviewerSurface() {
   ).toFixed(1);
 
   const getVerdict = (avg: number) => {
-    if (avg >= 4.5) return { label: 'Strong Hire', color: 'text-emerald-400 bg-emerald-950/80 border-emerald-500/50' };
-    if (avg >= 3.8) return { label: 'Hire', color: 'text-indigo-400 bg-indigo-950/80 border-indigo-500/50' };
-    if (avg >= 3.0) return { label: 'Lean Hire', color: 'text-amber-400 bg-amber-950/80 border-amber-500/50' };
+    if (avg >= 4.5)
+      return {
+        label: 'Strong Hire',
+        color: 'text-emerald-400 bg-emerald-950/80 border-emerald-500/50',
+      };
+    if (avg >= 3.8)
+      return { label: 'Hire', color: 'text-indigo-400 bg-indigo-950/80 border-indigo-500/50' };
+    if (avg >= 3.0)
+      return { label: 'Lean Hire', color: 'text-amber-400 bg-amber-950/80 border-amber-500/50' };
     return { label: 'No Hire', color: 'text-rose-400 bg-rose-950/80 border-rose-500/50' };
   };
 
@@ -123,19 +129,17 @@ export function InterviewerSurface() {
           <div>
             <div className="flex items-center gap-2">
               <Award className="w-4 h-4 text-[#818CF8]" />
-              <span className="text-xs font-mono font-bold text-slate-300">
-                CALIBRATED VERDICT
-              </span>
+              <span className="text-xs font-mono font-bold text-slate-300">CALIBRATED VERDICT</span>
             </div>
             <div className="mt-1 flex items-baseline gap-2">
-              <span className="text-2xl font-bold font-mono text-white">
-                {averageScore}
-              </span>
+              <span className="text-2xl font-bold font-mono text-white">{averageScore}</span>
               <span className="text-xs text-slate-400">/ 5.0</span>
             </div>
           </div>
 
-          <div className={`px-3 py-1 rounded-full border text-xs font-bold font-mono tracking-wide ${verdict.color}`}>
+          <div
+            className={`px-3 py-1 rounded-full border text-xs font-bold font-mono tracking-wide ${verdict.color}`}
+          >
             {verdict.label}
           </div>
         </div>
@@ -244,9 +248,7 @@ export function InterviewerSurface() {
 
       {/* 3. Quick Rubric Observation Tags */}
       <div className="p-4 rounded-xl border border-white/10 bg-slate-900/60 space-y-2.5 shadow-lg">
-        <label className="text-xs font-semibold text-white block">
-          Quick Evaluation Tags:
-        </label>
+        <label className="text-xs font-semibold text-white block">Quick Evaluation Tags:</label>
         <div className="flex flex-wrap gap-1.5">
           {quickRubricTags.map((tag) => {
             const isSelected = selectedTags.includes(tag);
@@ -283,12 +285,14 @@ export function InterviewerSurface() {
               <h4 className="text-xs sm:text-sm font-semibold text-white">
                 Interviewer Hints & Solution
               </h4>
-              <p className="text-[11px] text-slate-400">
-                Progressive candidate scaffolding
-              </p>
+              <p className="text-[11px] text-slate-400">Progressive candidate scaffolding</p>
             </div>
           </div>
-          {hintsOpen ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+          {hintsOpen ? (
+            <ChevronUp className="w-4 h-4 text-slate-400" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-slate-400" />
+          )}
         </button>
 
         {hintsOpen && (
@@ -374,4 +378,3 @@ export function InterviewerSurface() {
 }
 
 export default InterviewerSurface;
-

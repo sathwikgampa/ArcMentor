@@ -4,12 +4,7 @@
  */
 
 export type InterviewDomain =
-  | 'BACKEND'
-  | 'FRONTEND'
-  | 'SYSTEM_DESIGN'
-  | 'DSA'
-  | 'BEHAVIORAL'
-  | 'PM_TEARDOWN';
+  'BACKEND' | 'FRONTEND' | 'SYSTEM_DESIGN' | 'DSA' | 'BEHAVIORAL' | 'PM_TEARDOWN';
 
 export type Seniority = 'ENTRY' | 'MID' | 'SENIOR' | 'STAFF_PLUS';
 

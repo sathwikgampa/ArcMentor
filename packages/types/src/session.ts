@@ -12,10 +12,10 @@ export interface PhaseConfig {
 }
 
 export const SESSION_PHASES: PhaseConfig[] = [
-  { name: 'intro', label: 'Introduction', durationSeconds: 300 },       // 5 minutes
-  { name: 'practice', label: 'Practice', durationSeconds: 2100 },       // 35 minutes
-  { name: 'qna', label: 'Q&A', durationSeconds: 300 },                  // 5 minutes
-  { name: 'feedback', label: 'Feedback', durationSeconds: 900 },         // 15 minutes
+  { name: 'intro', label: 'Introduction', durationSeconds: 300 }, // 5 minutes
+  { name: 'practice', label: 'Practice', durationSeconds: 2100 }, // 35 minutes
+  { name: 'qna', label: 'Q&A', durationSeconds: 300 }, // 5 minutes
+  { name: 'feedback', label: 'Feedback', durationSeconds: 900 }, // 15 minutes
 ];
 
 export const TOTAL_SESSION_DURATION_SECONDS = SESSION_PHASES.reduce(

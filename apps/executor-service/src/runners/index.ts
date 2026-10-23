@@ -21,7 +21,10 @@ export interface LanguageRunner {
  * Runner Registry implementing sandboxed execution delegates.
  */
 export class CodeRunner {
-  private static languageConfigs: Record<SupportedLanguage, { command: string; extension: string }> = {
+  private static languageConfigs: Record<
+    SupportedLanguage,
+    { command: string; extension: string }
+  > = {
     python: { command: 'python3', extension: 'py' },
     javascript: { command: 'node', extension: 'js' },
     typescript: { command: 'tsx', extension: 'ts' },

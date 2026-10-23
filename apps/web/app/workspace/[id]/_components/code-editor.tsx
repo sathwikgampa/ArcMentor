@@ -125,12 +125,12 @@ export function CodeEditor({
 }: CodeEditorProps) {
   const { currentLanguage, setCurrentLanguage } = useWorkspaceStore();
   const effectiveLanguage = propLanguage || currentLanguage || 'typescript';
-  
+
   const [copied, setCopied] = useState(false);
   const [fontSize, setFontSize] = useState(13);
   const [minimap, setMinimap] = useState(false);
   const [editorCode, setEditorCode] = useState(
-    defaultValue || STARTER_CODE[effectiveLanguage] || STARTER_CODE.typescript
+    defaultValue || STARTER_CODE[effectiveLanguage] || STARTER_CODE.typescript,
   );
 
   const handleLanguageChange = (lang: string) => {
@@ -160,7 +160,10 @@ export function CodeEditor({
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300">
             <FileCode2 className="w-3.5 h-3.5 text-[#818CF8]" />
-            <span className="font-semibold text-white">solution.{effectiveLanguage === 'python' ? 'py' : effectiveLanguage === 'go' ? 'go' : 'ts'}</span>
+            <span className="font-semibold text-white">
+              solution.
+              {effectiveLanguage === 'python' ? 'py' : effectiveLanguage === 'go' ? 'go' : 'ts'}
+            </span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-1" />
           </div>
 
@@ -217,7 +220,11 @@ export function CodeEditor({
             className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all"
             title="Copy Code"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? (
+              <Check className="w-3.5 h-3.5 text-emerald-400" />
+            ) : (
+              <Copy className="w-3.5 h-3.5" />
+            )}
           </button>
         </div>
       </div>
@@ -228,7 +235,15 @@ export function CodeEditor({
           height={height}
           theme="vs-dark"
           defaultLanguage="typescript"
-          language={effectiveLanguage === 'python' ? 'python' : effectiveLanguage === 'go' ? 'go' : effectiveLanguage === 'javascript' ? 'javascript' : 'typescript'}
+          language={
+            effectiveLanguage === 'python'
+              ? 'python'
+              : effectiveLanguage === 'go'
+                ? 'go'
+                : effectiveLanguage === 'javascript'
+                  ? 'javascript'
+                  : 'typescript'
+          }
           value={value !== undefined ? value : editorCode}
           onChange={(val, ev) => {
             setEditorCode(val || '');
@@ -287,4 +302,3 @@ export function CodeEditor({
 }
 
 export default CodeEditor;
-

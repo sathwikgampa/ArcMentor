@@ -31,9 +31,7 @@ export default function OnboardingPage() {
   // Controlled form state
   const [role, setRole] = useState<'interviewee' | 'interviewer'>('interviewee');
   const [techStack, setTechStack] = useState<string>('React/Next.js');
-  const [targetCompaniesInput, setTargetCompaniesInput] = useState<string>(
-    'Google, Meta, Stripe'
-  );
+  const [targetCompaniesInput, setTargetCompaniesInput] = useState<string>('Google, Meta, Stripe');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -84,9 +82,7 @@ export default function OnboardingPage() {
             className="inline-flex items-center gap-2 mb-3 group transition-transform hover:scale-105"
           >
             <span className="text-[#5856D6] font-extrabold text-2xl">⚡</span>
-            <span className="text-xl font-bold tracking-tight text-white">
-              ArcMentor
-            </span>
+            <span className="text-xl font-bold tracking-tight text-white">ArcMentor</span>
           </Link>
           <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Complete Your Profile
@@ -128,9 +124,7 @@ export default function OnboardingPage() {
               <label className="text-sm font-semibold text-white flex items-center gap-2">
                 <span>Select your Role</span>
               </label>
-              <span className="text-[11px] font-mono text-slate-400">
-                Step 1 of 3
-              </span>
+              <span className="text-[11px] font-mono text-slate-400">Step 1 of 3</span>
             </div>
 
             <div
@@ -230,9 +224,7 @@ export default function OnboardingPage() {
                 <Code2 className="w-4 h-4 text-[#818CF8]" />
                 <span>Primary Tech Stack</span>
               </label>
-              <span className="text-[11px] font-mono text-slate-400">
-                Step 2 of 3
-              </span>
+              <span className="text-[11px] font-mono text-slate-400">Step 2 of 3</span>
             </div>
 
             <div className="relative">
@@ -245,11 +237,7 @@ export default function OnboardingPage() {
                 className="w-full appearance-none bg-slate-900/90 text-white text-sm rounded-xl px-4 py-3.5 pr-10 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[#5856D6] focus:border-[#5856D6] transition-all cursor-pointer shadow-inner"
               >
                 {TECH_STACK_OPTIONS.map((option) => (
-                  <option
-                    key={option}
-                    value={option}
-                    className="bg-slate-900 text-white py-2"
-                  >
+                  <option key={option} value={option} className="bg-slate-900 text-white py-2">
                     {option}
                   </option>
                 ))}
@@ -286,9 +274,7 @@ export default function OnboardingPage() {
                 <Building2 className="w-4 h-4 text-[#818CF8]" />
                 <span>Target Companies</span>
               </label>
-              <span className="text-[11px] font-mono text-slate-400">
-                Step 3 of 3
-              </span>
+              <span className="text-[11px] font-mono text-slate-400">Step 3 of 3</span>
             </div>
 
             <div className="relative">

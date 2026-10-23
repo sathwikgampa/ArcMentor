@@ -6,6 +6,10 @@ import { authRouter } from './routes/auth.routes';
 import { creditRouter } from './routes/credit.routes';
 import { slotRouter } from './routes/slot.routes';
 import { roomRouter } from './routes/room.routes';
+import { rubricRoutes } from './routes/rubrics';
+import { userRoutes } from './routes/user';
+import { matchRoutes } from './routes/matching';
+import { feedbackRoutes } from './routes/feedback';
 
 const app = express();
 
@@ -52,6 +56,10 @@ app.use('/api/auth', authRateLimiter, authRouter);
 app.use('/api/credits', creditRouter);
 app.use('/api/slots', slotRouter);
 app.use('/api/rooms', roomRouter);
+app.use('/api/rubrics', rubricRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/match', matchRoutes);
+app.use('/api/feedback', feedbackRoutes);
 
 // Global Error Handler Middleware
 app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

@@ -12,10 +12,7 @@ export interface RubricDimension {
 }
 
 export type RubricKey =
-  | 'technicalCorrectness'
-  | 'problemClarification'
-  | 'communication'
-  | 'behavioralExecution';
+  'technicalCorrectness' | 'problemClarification' | 'communication' | 'behavioralExecution';
 
 export const RUBRIC_DIMENSIONS: RubricDimension[] = [
   {
@@ -71,7 +68,7 @@ export interface FeedbackResponse {
 
 export interface SkillRadarData {
   dimension: string;
-  score: number;     // Average across all sessions
+  score: number; // Average across all sessions
   trend: 'up' | 'down' | 'stable';
   sessionCount: number;
 }

@@ -30,17 +30,17 @@
 
 ## 1. Layer-by-Layer Tech Selections
 
-| Layer | Recommended Technology | Primary Justification |
-| :--- | :--- | :--- |
-| **Frontend Framework** | **Next.js 15+ (App Router)** | Hybrid SSR/SSG rendering for SEO landing pages and reactive client workspace dashboards. |
-| **Styling & UI Components** | **Tailwind CSS + Shadcn UI** | Rapid development of high-trust, modern SaaS interface components and glassmorphic layouts. |
-| **Real-Time Synchronization** | **Socket.IO + Yjs (CRDT)** | Sub-50ms operational transformation for collaborative multi-user code and canvas editing. |
-| **Media Streaming** | **WebRTC + LiveKit API** | In-browser peer-to-peer video/audio calls with sub-150ms latency and minimal infrastructure overhead. |
-| **Embedded Code Editor** | **Monaco Editor React** | Provides native VS Code editor capabilities directly inside browser workspaces. |
-| **Backend Framework** | **FastAPI (Python) or Node.js (TS)** | Asynchronous, non-blocking architecture optimized for WebSockets, background jobs, and REST routes. |
-| **Queue & Match Cache** | **Redis (Sorted Sets & Pub/Sub)** | In-memory queue storage for fast slot matching, geo/timezone indexing, and real-time notifications. |
-| **Primary Database** | **PostgreSQL + Prisma ORM** | ACID-compliant relational storage for credit transaction ledgers, user profiles, and evaluation rubrics. |
-| **Sandboxed Code Execution** | **Piston API / Isolated Containers** | Secure, multi-language code compilation and runtime testing in isolated containers. |
+| Layer                         | Recommended Technology               | Primary Justification                                                                                    |
+| :---------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------- |
+| **Frontend Framework**        | **Next.js 15+ (App Router)**         | Hybrid SSR/SSG rendering for SEO landing pages and reactive client workspace dashboards.                 |
+| **Styling & UI Components**   | **Tailwind CSS + Shadcn UI**         | Rapid development of high-trust, modern SaaS interface components and glassmorphic layouts.              |
+| **Real-Time Synchronization** | **Socket.IO + Yjs (CRDT)**           | Sub-50ms operational transformation for collaborative multi-user code and canvas editing.                |
+| **Media Streaming**           | **WebRTC + LiveKit API**             | In-browser peer-to-peer video/audio calls with sub-150ms latency and minimal infrastructure overhead.    |
+| **Embedded Code Editor**      | **Monaco Editor React**              | Provides native VS Code editor capabilities directly inside browser workspaces.                          |
+| **Backend Framework**         | **FastAPI (Python) or Node.js (TS)** | Asynchronous, non-blocking architecture optimized for WebSockets, background jobs, and REST routes.      |
+| **Queue & Match Cache**       | **Redis (Sorted Sets & Pub/Sub)**    | In-memory queue storage for fast slot matching, geo/timezone indexing, and real-time notifications.      |
+| **Primary Database**          | **PostgreSQL + Prisma ORM**          | ACID-compliant relational storage for credit transaction ledgers, user profiles, and evaluation rubrics. |
+| **Sandboxed Code Execution**  | **Piston API / Isolated Containers** | Secure, multi-language code compilation and runtime testing in isolated containers.                      |
 
 ---
 
@@ -55,7 +55,7 @@
 
 ## 3. Development Quality & CI/CD Checklist
 
-* [ ] Set up GitHub Actions for automated linting, type-checking, and unit tests.
-* [ ] Configure Redis Pub/Sub failover for WebSocket gateway scalability.
-* [ ] Enforce container CPU/Memory resource constraints for public code execution endpoints.
-* [ ] **Final Project Step:** Install and integrate **CodeRabbit** on the repository to perform automated AI pull-request reviews and static code quality analysis.
+- [ ] Set up GitHub Actions for automated linting, type-checking, and unit tests.
+- [ ] Configure Redis Pub/Sub failover for WebSocket gateway scalability.
+- [ ] Enforce container CPU/Memory resource constraints for public code execution endpoints.
+- [ ] **Final Project Step:** Install and integrate **CodeRabbit** on the repository to perform automated AI pull-request reviews and static code quality analysis.

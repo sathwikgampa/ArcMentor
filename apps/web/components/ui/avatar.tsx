@@ -22,12 +22,12 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         className={cn(
           'relative flex shrink-0 overflow-hidden rounded-full border border-white/10 select-none bg-slate-900',
           sizeClasses[size],
-          className
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 Avatar.displayName = 'Avatar';
 
@@ -54,7 +54,7 @@ const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
         {...props}
       />
     );
-  }
+  },
 );
 AvatarImage.displayName = 'AvatarImage';
 
@@ -67,12 +67,12 @@ const AvatarFallback = React.forwardRef<HTMLDivElement, AvatarFallbackProps>(
         ref={ref}
         className={cn(
           'flex h-full w-full items-center justify-center rounded-full bg-gradient-to-tr from-[#5856D6] to-[#818CF8] font-semibold text-white tracking-wider',
-          className
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 AvatarFallback.displayName = 'AvatarFallback';
 

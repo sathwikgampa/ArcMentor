@@ -37,13 +37,17 @@ export function Modal({ isOpen, onClose, title, description, children, className
       <div
         className={cn(
           'relative w-full max-w-lg rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-6 transition-all',
-          className
+          className,
         )}
       >
         <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
-            {title && <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{title}</h2>}
-            {description && <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{description}</p>}
+            {title && (
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{title}</h2>
+            )}
+            {description && (
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{description}</p>
+            )}
           </div>
           <button
             onClick={onClose}

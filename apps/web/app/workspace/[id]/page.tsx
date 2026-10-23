@@ -69,10 +69,27 @@ export default function WorkspacePage({ params }: WorkspacePageProps) {
 
   const [copiedLink, setCopiedLink] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [chatMessages, setChatMessages] = useState<Array<{ sender: string; text: string; time: string; isHost?: boolean }>>([
-    { sender: 'Alex Chen', text: 'Welcome to your mock technical session! Feel free to clarify constraints before writing any code.', time: '14:00', isHost: true },
-    { sender: 'You', text: 'Thanks Alex! Could the input array contain duplicate numbers or negative integers?', time: '14:01', isHost: false },
-    { sender: 'Alex Chen', text: 'Yes, elements can be negative or positive. Each test case has exactly one valid solution pair.', time: '14:02', isHost: true },
+  const [chatMessages, setChatMessages] = useState<
+    Array<{ sender: string; text: string; time: string; isHost?: boolean }>
+  >([
+    {
+      sender: 'Alex Chen',
+      text: 'Welcome to your mock technical session! Feel free to clarify constraints before writing any code.',
+      time: '14:00',
+      isHost: true,
+    },
+    {
+      sender: 'You',
+      text: 'Thanks Alex! Could the input array contain duplicate numbers or negative integers?',
+      time: '14:01',
+      isHost: false,
+    },
+    {
+      sender: 'Alex Chen',
+      text: 'Yes, elements can be negative or positive. Each test case has exactly one valid solution pair.',
+      time: '14:02',
+      isHost: true,
+    },
   ]);
   const [chatInput, setChatInput] = useState('');
 
@@ -238,7 +255,11 @@ export default function WorkspacePage({ params }: WorkspacePageProps) {
             className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all"
             title="Copy Session Link"
           >
-            {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
+            {copiedLink ? (
+              <Check className="w-3.5 h-3.5 text-emerald-400" />
+            ) : (
+              <Share2 className="w-3.5 h-3.5" />
+            )}
           </button>
 
           {/* End Session Button */}
@@ -279,8 +300,12 @@ export default function WorkspacePage({ params }: WorkspacePageProps) {
             {/* Top Half: Audio / Video Tile */}
             <div className="h-[46%] shrink-0 flex flex-col bg-slate-900/30 overflow-hidden">
               <AVGrid
-                interviewerName={role === 'interviewer' ? 'You (Interviewer)' : 'Alex Chen (Staff Eng)'}
-                intervieweeName={role === 'interviewee' ? 'You (Candidate)' : 'Alex Chen (Candidate)'}
+                interviewerName={
+                  role === 'interviewer' ? 'You (Interviewer)' : 'Alex Chen (Staff Eng)'
+                }
+                intervieweeName={
+                  role === 'interviewee' ? 'You (Candidate)' : 'Alex Chen (Candidate)'
+                }
               />
             </div>
 
@@ -377,5 +402,3 @@ export default function WorkspacePage({ params }: WorkspacePageProps) {
     </div>
   );
 }
-
-

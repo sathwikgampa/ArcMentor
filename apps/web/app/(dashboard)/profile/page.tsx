@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { TrendingUp, Receipt, History } from 'lucide-react';
 import { SkillRadarChart } from './_components/skill-radar-chart';
 import { CreditLedger } from './_components/credit-ledger';

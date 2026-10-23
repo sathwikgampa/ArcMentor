@@ -10,7 +10,11 @@ export interface EmailAlertPayload {
   context: Record<string, string | number>;
 }
 
-export async function processEmailAlertJob(job: Job<EmailAlertPayload>): Promise<{ sent: boolean }> {
-  console.log(`[Job: EmailAlert] Dispatching ${job.data.template} email notification to ${job.data.to}`);
+export async function processEmailAlertJob(
+  job: Job<EmailAlertPayload>,
+): Promise<{ sent: boolean }> {
+  console.log(
+    `[Job: EmailAlert] Dispatching ${job.data.template} email notification to ${job.data.to}`,
+  );
   return { sent: true };
 }

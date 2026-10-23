@@ -104,9 +104,7 @@ export function CreditLedger() {
                   >
                     {tx.title}
                   </h5>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
-                    {tx.details}
-                  </p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">{tx.details}</p>
                 </div>
               </div>
 
@@ -122,9 +120,7 @@ export function CreditLedger() {
                   <span className="text-amber-400 text-[10px]">⚡</span>
                   <span>{tx.amount}</span>
                 </span>
-                <p className="text-[10px] font-mono text-slate-500 mt-1">
-                  {tx.date}
-                </p>
+                <p className="text-[10px] font-mono text-slate-500 mt-1">{tx.date}</p>
               </div>
             </div>
           );

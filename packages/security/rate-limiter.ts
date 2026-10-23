@@ -6,20 +6,20 @@
 import type { Redis } from 'ioredis';
 
 export interface RateLimitConfig {
-  windowMs: number;       // Window size in milliseconds
-  maxRequests: number;    // Max requests per window
-  keyPrefix: string;      // Redis key prefix (e.g., 'rl:api', 'rl:auth')
+  windowMs: number; // Window size in milliseconds
+  maxRequests: number; // Max requests per window
+  keyPrefix: string; // Redis key prefix (e.g., 'rl:api', 'rl:auth')
 }
 
 export interface RateLimitResult {
   allowed: boolean;
   remaining: number;
-  resetAt: number;        // Unix timestamp when window resets
-  retryAfterMs: number;   // Milliseconds until next allowed request (0 if allowed)
+  resetAt: number; // Unix timestamp when window resets
+  retryAfterMs: number; // Milliseconds until next allowed request (0 if allowed)
 }
 
 const DEFAULT_CONFIG: RateLimitConfig = {
-  windowMs: 60_000,       // 1 minute
+  windowMs: 60_000, // 1 minute
   maxRequests: 100,
   keyPrefix: 'rl:default',
 };
@@ -38,15 +38,21 @@ export async function checkRateLimit(
   const now = Date.now();
   const windowStart = now - windowMs;
 
-  // Pipeline: remove expired entries, count current entries, add new entry, set expiry
+  // Pipeline: remove expired entries, count current entries, get oldest entry, add new entry, set expiry
   const pipeline = redis.pipeline();
   pipeline.zremrangebyscore(key, 0, windowStart);
   pipeline.zcard(key);
+  pipeline.zrange(key, 0, 0, 'WITHSCORES');
   pipeline.zadd(key, now.toString(), `${now}-${Math.random().toString(36).slice(2)}`);
   pipeline.pexpire(key, windowMs);
 
   const results = await pipeline.exec();
   const currentCount = (results?.[1]?.[1] as number) ?? 0;
+  const oldestResult = results?.[2]?.[1] as string[] | undefined;
+  const oldestScore =
+    oldestResult && oldestResult.length >= 2 && !isNaN(Number(oldestResult[1]))
+      ? Number(oldestResult[1])
+      : windowStart;
 
   const allowed = currentCount < maxRequests;
   const remaining = Math.max(0, maxRequests - currentCount - (allowed ? 1 : 0));
@@ -57,11 +63,13 @@ export async function checkRateLimit(
     await redis.zremrangebyscore(key, now, now);
   }
 
+  const retryAfterMs = allowed ? 0 : Math.max(1000, oldestScore + windowMs - now);
+
   return {
     allowed,
     remaining,
     resetAt,
-    retryAfterMs: allowed ? 0 : windowMs - (now - windowStart),
+    retryAfterMs,
   };
 }
 

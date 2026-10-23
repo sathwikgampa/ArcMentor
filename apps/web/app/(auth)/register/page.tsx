@@ -3,7 +3,14 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/components/ui/card';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -19,12 +26,16 @@ export default function RegisterPage() {
     <Card className="w-full max-w-md bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-2xl border-slate-200 dark:border-slate-800">
       <CardHeader className="space-y-1 text-center">
         <CardTitle className="text-2xl font-bold tracking-tight">Create an account</CardTitle>
-        <CardDescription>Join ArcMentor to start practicing peer-to-peer technical interviews</CardDescription>
+        <CardDescription>
+          Join ArcMentor to start practicing peer-to-peer technical interviews
+        </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              Full Name
+            </label>
             <input
               type="text"
               placeholder="Alex Johnson"
@@ -46,7 +57,9 @@ export default function RegisterPage() {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              Password
+            </label>
             <input
               type="password"
               placeholder="••••••••"

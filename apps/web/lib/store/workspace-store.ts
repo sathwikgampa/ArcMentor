@@ -19,7 +19,7 @@ export interface WorkspaceState {
   executionOutput: string | null;
   activeRightTab: 'rubric' | 'chat';
   reactions: ReactionItem[];
-  
+
   // Actions
   setActiveView: (view: ActiveView) => void;
   toggleRole: () => void;
@@ -73,4 +73,3 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
 }));
 
 export default useWorkspaceStore;
-

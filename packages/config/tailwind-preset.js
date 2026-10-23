@@ -76,8 +76,7 @@ module.exports = {
       backgroundImage: {
         'gradient-primary': 'linear-gradient(135deg, #4F46E5, #7C3AED)',
         'gradient-hero': 'linear-gradient(180deg, #0F172A 0%, #1E1B4B 50%, #312E81 100%)',
-        'gradient-card':
-          'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
+        'gradient-card': 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
       },
       backdropBlur: {
         glass: '16px',

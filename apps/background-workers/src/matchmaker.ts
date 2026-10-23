@@ -272,28 +272,40 @@ export const matchmakerQueue = new Queue('matchmaking-queue', {
 });
 
 /**
- * BullMQ Worker: MatchmakerWorker
+ * BullMQ Worker factory: createMatchmakerWorker
  */
-export const MatchmakerWorker = new Worker(
-  'matchmaking-queue',
-  async (job: Job) => {
-    console.log(`[MatchmakerWorker] Executing matchmaking run (Job ID: ${job.id})`);
-    const results = await findAndPairCandidates();
-    return { matchedPairs: results.length, matches: results };
-  },
-  {
-    connection: redisConnection,
-    concurrency: 1, // Single active processor per worker instance for thread safety
-  },
-);
+export function createMatchmakerWorker(conn: Redis = redisConnection): Worker {
+  const worker = new Worker(
+    'matchmaking-queue',
+    async (job: Job) => {
+      console.log(`[MatchmakerWorker] Executing matchmaking run (Job ID: ${job.id})`);
+      const results = await findAndPairCandidates();
+      return { matchedPairs: results.length, matches: results };
+    },
+    {
+      connection: conn,
+      concurrency: 1, // Single active processor per worker instance for thread safety
+    },
+  );
 
-MatchmakerWorker.on('completed', (job) => {
-  console.log(`[MatchmakerWorker] Job ${job.id} completed.`);
-});
+  worker.on('completed', (job) => {
+    console.log(`[MatchmakerWorker] Job ${job.id} completed.`);
+  });
 
-MatchmakerWorker.on('failed', (job, err) => {
-  console.error(`[MatchmakerWorker] Job ${job?.id} failed with error:`, err);
-});
+  worker.on('failed', (job, err) => {
+    console.error(`[MatchmakerWorker] Job ${job?.id} failed with error:`, err);
+  });
+
+  return worker;
+}
+
+let _workerInstance: Worker | null = null;
+export const getMatchmakerWorker = (): Worker => {
+  if (!_workerInstance) {
+    _workerInstance = createMatchmakerWorker();
+  }
+  return _workerInstance;
+};
 
 /**
  * Redis Poller fallback for interval-based execution

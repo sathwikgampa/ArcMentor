@@ -66,7 +66,9 @@ export function InterviewProView() {
   const [selectedProbe, setSelectedProbe] = useState<string | null>(null);
 
   // Live NLP transcript stream simulation
-  const [transcriptLines, setTranscriptLines] = useState<Array<{ id: number; speaker: string; text: string; keywords?: string[]; time: string }>>([
+  const [transcriptLines, setTranscriptLines] = useState<
+    Array<{ id: number; speaker: string; text: string; keywords?: string[]; time: string }>
+  >([
     {
       id: 1,
       speaker: 'AI Interviewer',
@@ -178,7 +180,7 @@ export function InterviewProView() {
                 <div className="relative flex flex-col items-center">
                   {/* Glowing Candidate Focus Rings */}
                   <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-indigo-500/25 via-cyan-500/20 to-purple-500/25 blur-xl animate-pulse" />
-                  
+
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-slate-900 flex items-center justify-center text-white font-black text-3xl sm:text-4xl shadow-2xl ring-2 ring-indigo-400/50 relative">
                     AR
                     {/* Live indicator dot */}
@@ -243,7 +245,11 @@ export function InterviewProView() {
                   }`}
                   title={camActive ? 'Turn Off Camera' : 'Turn On Camera'}
                 >
-                  {camActive ? <Video className="w-3.5 h-3.5" /> : <VideoOff className="w-3.5 h-3.5" />}
+                  {camActive ? (
+                    <Video className="w-3.5 h-3.5" />
+                  ) : (
+                    <VideoOff className="w-3.5 h-3.5" />
+                  )}
                 </button>
 
                 <button
@@ -280,7 +286,11 @@ export function InterviewProView() {
                   className="p-1 rounded text-slate-400 hover:text-white transition-colors"
                   title="Toggle AI Voice Playback"
                 >
-                  {audioPlayback ? <Volume2 className="w-3.5 h-3.5 text-indigo-400" /> : <VolumeX className="w-3.5 h-3.5" />}
+                  {audioPlayback ? (
+                    <Volume2 className="w-3.5 h-3.5 text-indigo-400" />
+                  ) : (
+                    <VolumeX className="w-3.5 h-3.5" />
+                  )}
                 </button>
                 <button
                   type="button"
@@ -380,7 +390,8 @@ export function InterviewProView() {
                 Strong Hire Recommendation
               </h3>
               <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                Candidate exhibits rapid problem scoping and production-grade optimization intuitions.
+                Candidate exhibits rapid problem scoping and production-grade optimization
+                intuitions.
               </p>
             </div>
           </div>
@@ -391,9 +402,7 @@ export function InterviewProView() {
           <div className="flex items-center justify-between border-b border-white/10 pb-2">
             <div className="flex items-center gap-2">
               <Brain className="w-4 h-4 text-cyan-400" />
-              <h4 className="text-xs font-semibold text-white">
-                Live Cognitive & Tech Breakdown
-              </h4>
+              <h4 className="text-xs font-semibold text-white">Live Cognitive & Tech Breakdown</h4>
             </div>
             <span className="text-[10px] font-mono text-slate-400">NLP Calibrated</span>
           </div>
@@ -446,7 +455,9 @@ export function InterviewProView() {
         {/* 3. Live Speech Tone & Delivery Analytics */}
         <div className="grid grid-cols-2 gap-2.5">
           <div className="p-3 rounded-xl bg-white/[0.02] border border-white/10 space-y-1">
-            <span className="text-[10px] font-mono text-slate-400 uppercase block">Speech Pace</span>
+            <span className="text-[10px] font-mono text-slate-400 uppercase block">
+              Speech Pace
+            </span>
             <div className="flex items-baseline gap-1.5">
               <span className="text-base font-bold font-mono text-white">135</span>
               <span className="text-[10px] text-slate-400">WPM</span>
@@ -455,7 +466,9 @@ export function InterviewProView() {
           </div>
 
           <div className="p-3 rounded-xl bg-white/[0.02] border border-white/10 space-y-1">
-            <span className="text-[10px] font-mono text-slate-400 uppercase block">Delivery Tone</span>
+            <span className="text-[10px] font-mono text-slate-400 uppercase block">
+              Delivery Tone
+            </span>
             <div className="flex items-baseline gap-1.5">
               <span className="text-sm font-bold text-white truncate">Articulate</span>
             </div>
@@ -501,15 +514,19 @@ export function InterviewProView() {
             {transcriptLines.map((line) => (
               <div key={line.id} className="space-y-0.5">
                 <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-400">
-                  <span className={line.speaker === 'Candidate' ? 'text-indigo-400 font-bold' : 'text-cyan-400 font-bold'}>
+                  <span
+                    className={
+                      line.speaker === 'Candidate'
+                        ? 'text-indigo-400 font-bold'
+                        : 'text-cyan-400 font-bold'
+                    }
+                  >
                     {line.speaker}
                   </span>
                   <span>•</span>
                   <span>{line.time}</span>
                 </div>
-                <p className="text-slate-300 leading-relaxed text-[11px]">
-                  {line.text}
-                </p>
+                <p className="text-slate-300 leading-relaxed text-[11px]">{line.text}</p>
               </div>
             ))}
           </div>

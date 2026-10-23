@@ -10,7 +10,8 @@ export const config = {
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   jwtSecret: process.env.JWT_SECRET || 'arcmentor-jwt-secret-change-me',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '24h',
-  databaseUrl: process.env.DATABASE_URL || 'postgresql://arcmentor:arcmentor@localhost:5432/arcmentor',
+  databaseUrl:
+    process.env.DATABASE_URL || 'postgresql://arcmentor:arcmentor@localhost:5432/arcmentor',
   redisUrl: process.env.REDIS_URL || 'redis://localhost:6379',
 };
 

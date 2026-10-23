@@ -13,8 +13,7 @@ const buttonVariants = cva(
       variant: {
         primary:
           'bg-gradient-primary text-white shadow-btn-primary hover:-translate-y-0.5 hover:shadow-lg',
-        secondary:
-          'border-2 border-primary text-primary bg-transparent hover:bg-primary/5',
+        secondary: 'border-2 border-primary text-primary bg-transparent hover:bg-primary/5',
         ghost: 'text-text-secondary hover:bg-surface-subtle hover:text-text-primary',
         destructive:
           'bg-error text-white shadow-btn-destructive hover:-translate-y-0.5 hover:shadow-lg',
@@ -34,17 +33,12 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+  extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => {
     return (
-      <button
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
+      <button className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
     );
   },
 );

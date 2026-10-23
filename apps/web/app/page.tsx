@@ -1,5 +1,15 @@
 import Link from 'next/link';
-import { ArrowRight, Search, Radio, SlidersHorizontal, Code2, ShieldCheck, CheckCircle2, Sparkles, BookOpen } from 'lucide-react';
+import {
+  ArrowRight,
+  Search,
+  Radio,
+  SlidersHorizontal,
+  Code2,
+  ShieldCheck,
+  CheckCircle2,
+  Sparkles,
+  BookOpen,
+} from 'lucide-react';
 import { UserAvatar } from '@/components/shared/user-avatar';
 
 export default function HomePage() {
@@ -27,9 +37,9 @@ export default function HomePage() {
 
         {/* Descriptive Subheadline */}
         <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-300 max-w-2xl leading-relaxed">
-          Practice technical rounds with verified peers across top tech tiers. 
-          Conduct sessions to earn platform credits, sharpen real-time problem solving, 
-          and receive calibrated rubric evaluations.
+          Practice technical rounds with verified peers across top tech tiers. Conduct sessions to
+          earn platform credits, sharpen real-time problem solving, and receive calibrated rubric
+          evaluations.
         </p>
 
         {/* CTA Buttons */}
@@ -77,9 +87,7 @@ export default function HomePage() {
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   QUEUE ACTIVE
                 </span>
-                <span className="text-[11px] font-mono text-slate-400">
-                  EST: ~1 MIN
-                </span>
+                <span className="text-[11px] font-mono text-slate-400">EST: ~1 MIN</span>
               </div>
             </div>
 
@@ -190,7 +198,8 @@ export default function HomePage() {
             </div>
             <h3 className="text-lg font-semibold text-white">Dual-View Workspace</h3>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
-              Shared Monaco code editor, isolated compilation sandbox, progressive hints, and integrated phase timers.
+              Shared Monaco code editor, isolated compilation sandbox, progressive hints, and
+              integrated phase timers.
             </p>
           </div>
 
@@ -200,7 +209,8 @@ export default function HomePage() {
             </div>
             <h3 className="text-lg font-semibold text-white">4D Evaluation Rubric</h3>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
-              Rate technical correctness, edge case handling, problem clarification, and behavioral STAR framework.
+              Rate technical correctness, edge case handling, problem clarification, and behavioral
+              STAR framework.
             </p>
           </div>
 
@@ -210,7 +220,8 @@ export default function HomePage() {
             </div>
             <h3 className="text-lg font-semibold text-white">Reciprocal Credit Economy</h3>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
-              Start with 2 free credits. Earn +1 by interviewing peers, spend -1 to practice. Guarded by karma ratings.
+              Start with 2 free credits. Earn +1 by interviewing peers, spend -1 to practice.
+              Guarded by karma ratings.
             </p>
           </div>
         </div>

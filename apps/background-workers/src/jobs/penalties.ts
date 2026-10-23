@@ -11,9 +11,13 @@ export interface PenaltyJobPayload {
   amount: number;
 }
 
-export async function processPenaltyJob(job: Job<PenaltyJobPayload>): Promise<{ deducted: boolean }> {
-  console.log(`[Job: Penalty] Executing ${job.data.penaltyType} penalty deduction of ${job.data.amount} credits for user ${job.data.userId}`);
-  
+export async function processPenaltyJob(
+  job: Job<PenaltyJobPayload>,
+): Promise<{ deducted: boolean }> {
+  console.log(
+    `[Job: Penalty] Executing ${job.data.penaltyType} penalty deduction of ${job.data.amount} credits for user ${job.data.userId}`,
+  );
+
   // Real implementation opens a Prisma serializable transaction to debit credits and lower karma score
   return { deducted: true };
 }

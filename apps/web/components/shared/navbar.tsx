@@ -12,10 +12,16 @@ export function Navbar() {
           ArcMentor
         </Link>
         <div className="hidden md:flex items-center gap-6">
-          <Link href="/dashboard" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+          <Link
+            href="/dashboard"
+            className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+          >
             Dashboard
           </Link>
-          <Link href="/schedule" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+          <Link
+            href="/schedule"
+            className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+          >
             Schedule
           </Link>
         </div>

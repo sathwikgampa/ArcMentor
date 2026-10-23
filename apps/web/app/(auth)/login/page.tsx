@@ -62,19 +62,13 @@ export default function LoginPage() {
             className="inline-flex items-center gap-2.5 group transition-transform hover:scale-105"
           >
             <span className="text-[#5856D6] font-extrabold text-3xl">⚡</span>
-            <span className="text-2xl font-bold tracking-tight text-white">
-              ArcMentor
-            </span>
+            <span className="text-2xl font-bold tracking-tight text-white">ArcMentor</span>
           </Link>
         </div>
 
         {/* Title and Subtitle */}
-        <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-          Welcome back
-        </h1>
-        <p className="text-sm text-slate-400 mt-2">
-          Sign in to your account
-        </p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Welcome back</h1>
+        <p className="text-sm text-slate-400 mt-2">Sign in to your account</p>
 
         {/* Mock OAuth Buttons */}
         <div className="mt-8 space-y-3.5">

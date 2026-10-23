@@ -4,22 +4,22 @@
 
 @layer base {
   :root {
-    --color-primary: #5856D6;
-    --color-primary-light: #7E7DF8;
-    --color-primary-dark: #4341B8;
+    --color-primary: #5856d6;
+    --color-primary-light: #7e7df8;
+    --color-primary-dark: #4341b8;
     --color-bg-dark: #020617; /* bg-slate-950 */
-    --color-bg-light: #0F172A;
-    --color-bg-card: #0F172A;
-    --color-bg-subtle: #1E293B;
-    --color-border: #1E293B;
+    --color-bg-light: #0f172a;
+    --color-bg-card: #0f172a;
+    --color-bg-subtle: #1e293b;
+    --color-border: #1e293b;
     --color-border-dark: #334155;
-    --color-text-primary: #F8FAFC; /* text-slate-50 */
-    --color-text-secondary: #94A3B8;
-    --color-text-muted: #64748B;
-    --color-success: #10B981;
-    --color-warning: #F59E0B;
-    --color-error: #EF4444;
-    --color-info: #0EA5E9;
+    --color-text-primary: #f8fafc; /* text-slate-50 */
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #64748b;
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+    --color-info: #0ea5e9;
   }
 
   * {
@@ -43,11 +43,7 @@
 @layer components {
   /* Glassmorphic card overlay for dark backgrounds */
   .glass-card {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.08),
-      rgba(255, 255, 255, 0.02)
-    );
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
     backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
@@ -55,12 +51,7 @@
 
   /* Skeleton loading shimmer */
   .skeleton {
-    background: linear-gradient(
-      90deg,
-      #1E293B 25%,
-      #334155 50%,
-      #1E293B 75%
-    );
+    background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border-radius: 8px;
@@ -75,7 +66,7 @@
 
   /* Gradient text utility using primary brand color */
   .text-gradient {
-    background: linear-gradient(135deg, #5856D6, #9089FC);
+    background: linear-gradient(135deg, #5856d6, #9089fc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -90,7 +81,7 @@
   /* Subtle code grid pattern */
   .bg-subtle-grid {
     background-size: 32px 32px;
-    background-image: 
+    background-image:
       linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   }
@@ -113,8 +104,13 @@
 }
 
 @keyframes audioWave {
-  0%, 100% { height: 4px; }
-  50% { height: 18px; }
+  0%,
+  100% {
+    height: 4px;
+  }
+  50% {
+    height: 18px;
+  }
 }
 
 .animate-audio-bar-1 {
@@ -129,4 +125,3 @@
 .animate-audio-bar-4 {
   animation: audioWave 1.3s ease-in-out infinite 0.1s;
 }
-

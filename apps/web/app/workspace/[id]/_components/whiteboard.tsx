@@ -42,10 +42,42 @@ export function Whiteboard({ roomId }: WhiteboardProps) {
   const [zoom, setZoom] = useState<number>(100);
 
   const initialNodes: DiagramNode[] = [
-    { id: '1', title: 'CLIENT LAYER', subtitle: 'Web / Mobile (Next.js)', iconType: 'globe', x: 40, y: 160, color: '#818CF8' },
-    { id: '2', title: 'API GATEWAY', subtitle: 'Reverse Proxy & Auth', iconType: 'gateway', x: 250, y: 160, color: '#5856D6' },
-    { id: '3', title: 'REDIS CLUSTER', subtitle: 'Session & O(1) Cache', iconType: 'cache', x: 460, y: 80, color: '#10B981' },
-    { id: '4', title: 'POSTGRESQL', subtitle: 'Primary ACID DB', iconType: 'db', x: 460, y: 240, color: '#F59E0B' },
+    {
+      id: '1',
+      title: 'CLIENT LAYER',
+      subtitle: 'Web / Mobile (Next.js)',
+      iconType: 'globe',
+      x: 40,
+      y: 160,
+      color: '#818CF8',
+    },
+    {
+      id: '2',
+      title: 'API GATEWAY',
+      subtitle: 'Reverse Proxy & Auth',
+      iconType: 'gateway',
+      x: 250,
+      y: 160,
+      color: '#5856D6',
+    },
+    {
+      id: '3',
+      title: 'REDIS CLUSTER',
+      subtitle: 'Session & O(1) Cache',
+      iconType: 'cache',
+      x: 460,
+      y: 80,
+      color: '#10B981',
+    },
+    {
+      id: '4',
+      title: 'POSTGRESQL',
+      subtitle: 'Primary ACID DB',
+      iconType: 'db',
+      x: 460,
+      y: 240,
+      color: '#F59E0B',
+    },
   ];
 
   const [nodes, setNodes] = useState<DiagramNode[]>(initialNodes);
@@ -61,7 +93,12 @@ export function Whiteboard({ roomId }: WhiteboardProps) {
   ];
 
   const addCustomNode = () => {
-    const types: Array<{ title: string; subtitle: string; iconType: DiagramNode['iconType']; color: string }> = [
+    const types: Array<{
+      title: string;
+      subtitle: string;
+      iconType: DiagramNode['iconType'];
+      color: string;
+    }> = [
       { title: 'KAFKA QUEUE', subtitle: 'Event Streamer', iconType: 'queue', color: '#06B6D4' },
       { title: 'ELASTICSEARCH', subtitle: 'Vector Index', iconType: 'db', color: '#F43F5E' },
       { title: 'WORKER POOL', subtitle: 'Async Matcher', iconType: 'gateway', color: '#10B981' },
@@ -103,7 +140,7 @@ export function Whiteboard({ roomId }: WhiteboardProps) {
           };
         }
         return node;
-      })
+      }),
     );
   };
 
@@ -167,7 +204,9 @@ export function Whiteboard({ roomId }: WhiteboardProps) {
               type="button"
               onClick={() => setSelectedColor(c.hex)}
               className={`w-4 h-4 rounded-full transition-transform ${
-                selectedColor === c.hex ? 'scale-125 ring-2 ring-white' : 'hover:scale-110 opacity-70'
+                selectedColor === c.hex
+                  ? 'scale-125 ring-2 ring-white'
+                  : 'hover:scale-110 opacity-70'
               }`}
               style={{ backgroundColor: c.hex }}
               title={c.label}
@@ -290,9 +329,13 @@ export function Whiteboard({ roomId }: WhiteboardProps) {
         {/* Canvas Bottom Legend */}
         <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-white/10 pt-2 z-10">
           <div className="flex items-center gap-3">
-            <span>Elements: <strong className="text-white">{nodes.length}</strong></span>
+            <span>
+              Elements: <strong className="text-white">{nodes.length}</strong>
+            </span>
             <span className="text-slate-600">•</span>
-            <span>Collaborator Pointers: <strong className="text-emerald-400">2 Active</strong></span>
+            <span>
+              Collaborator Pointers: <strong className="text-emerald-400">2 Active</strong>
+            </span>
           </div>
           <span className="text-[#818CF8]">Hold click on any node to reposition</span>
         </div>
@@ -302,4 +345,3 @@ export function Whiteboard({ roomId }: WhiteboardProps) {
 }
 
 export default Whiteboard;
-

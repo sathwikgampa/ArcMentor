@@ -92,35 +92,44 @@ p2p-interview-matcher/
 ## ⚡ Quick Start & Local Setup
 
 ### 1. Prerequisites
+
 - **Node.js** >= 20.x
 - **pnpm** >= 9.x (`corepack enable && corepack prepare pnpm@latest --activate`)
 - **Docker & Docker Compose** (for PostgreSQL, Redis, and LiveKit)
 
 ### 2. Install Dependencies
+
 ```bash
 pnpm install
 ```
 
 ### 3. Spin Up Infrastructure Stack
+
 ```bash
 docker compose -f infra/docker-compose.dev.yml up -d
 ```
+
 This spins up:
+
 - **PostgreSQL** on port `5432`
 - **Redis** on port `6379`
 - **LiveKit Server** on port `7880`
 
 ### 4. Database Setup & Migrations
+
 ```bash
 pnpm --filter @arcmentor/db generate
 pnpm --filter @arcmentor/db migrate:dev
 ```
 
 ### 5. Launch All Services
+
 ```bash
 pnpm dev
 ```
+
 By default, Turborepo boots up:
+
 - Web Application: [http://localhost:3000](http://localhost:3000)
 - API Gateway: [http://localhost:4000](http://localhost:4000)
 - WebSocket Server: [http://localhost:5001](http://localhost:5001)
@@ -145,4 +154,5 @@ pnpm test
 ---
 
 ## 📜 License
+
 MIT License. Built for ambitious software engineers mastering technical interviews.

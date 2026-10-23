@@ -33,9 +33,33 @@ export function IntervieweeSurface({ children }: IntervieweeSurfaceProps) {
   const [selectedCase, setSelectedCase] = useState<number>(0);
 
   const [testCases, setTestCases] = useState([
-    { id: 1, nums: '[2, 7, 11, 15]', target: '9', expected: '[0, 1]', actual: '[0, 1]', time: '12ms', passed: true },
-    { id: 2, nums: '[3, 2, 4]', target: '6', expected: '[1, 2]', actual: '[1, 2]', time: '8ms', passed: true },
-    { id: 3, nums: '[3, 3]', target: '6', expected: '[0, 1]', actual: '[0, 1]', time: '11ms', passed: true },
+    {
+      id: 1,
+      nums: '[2, 7, 11, 15]',
+      target: '9',
+      expected: '[0, 1]',
+      actual: '[0, 1]',
+      time: '12ms',
+      passed: true,
+    },
+    {
+      id: 2,
+      nums: '[3, 2, 4]',
+      target: '6',
+      expected: '[1, 2]',
+      actual: '[1, 2]',
+      time: '8ms',
+      passed: true,
+    },
+    {
+      id: 3,
+      nums: '[3, 3]',
+      target: '6',
+      expected: '[0, 1]',
+      actual: '[0, 1]',
+      time: '11ms',
+      passed: true,
+    },
   ]);
 
   const handleRunCode = () => {
@@ -99,21 +123,38 @@ export function IntervieweeSurface({ children }: IntervieweeSurfaceProps) {
               <div className="flex items-center justify-between">
                 <h2 className="text-sm sm:text-base font-bold text-white tracking-tight flex items-center gap-2">
                   <span>1. Two Sum</span>
-                  <span className="text-xs font-normal text-slate-400 font-mono">#arrays #hash-table</span>
+                  <span className="text-xs font-normal text-slate-400 font-mono">
+                    #arrays #hash-table
+                  </span>
                 </h2>
                 <div className="text-[11px] font-mono text-slate-400">
-                  Time: <strong className="text-slate-200">2.0s</strong> • Memory: <strong className="text-slate-200">256MB</strong>
+                  Time: <strong className="text-slate-200">2.0s</strong> • Memory:{' '}
+                  <strong className="text-slate-200">256MB</strong>
                 </div>
               </div>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Given an array of integers <code className="text-[#C7D2FE] bg-white/5 px-1.5 py-0.5 rounded font-mono text-xs">nums</code> and an integer <code className="text-[#C7D2FE] bg-white/5 px-1.5 py-0.5 rounded font-mono text-xs">target</code>, return indices of the two numbers such that they add up to <code className="text-[#C7D2FE] bg-white/5 px-1.5 py-0.5 rounded font-mono text-xs">target</code>.
+                Given an array of integers{' '}
+                <code className="text-[#C7D2FE] bg-white/5 px-1.5 py-0.5 rounded font-mono text-xs">
+                  nums
+                </code>{' '}
+                and an integer{' '}
+                <code className="text-[#C7D2FE] bg-white/5 px-1.5 py-0.5 rounded font-mono text-xs">
+                  target
+                </code>
+                , return indices of the two numbers such that they add up to{' '}
+                <code className="text-[#C7D2FE] bg-white/5 px-1.5 py-0.5 rounded font-mono text-xs">
+                  target
+                </code>
+                .
               </p>
 
               {/* Examples Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono pt-1">
                 <div className="p-2 rounded-lg bg-slate-950/70 border border-white/5 space-y-0.5">
-                  <span className="text-[10px] font-bold text-indigo-300 block uppercase">Example 1</span>
+                  <span className="text-[10px] font-bold text-indigo-300 block uppercase">
+                    Example 1
+                  </span>
                   <p className="text-slate-300 text-[11px]">
                     <span className="text-slate-500">In:</span> nums = [2, 7, 11, 15], target = 9
                   </p>
@@ -123,22 +164,25 @@ export function IntervieweeSurface({ children }: IntervieweeSurfaceProps) {
                 </div>
 
                 <div className="p-2 rounded-lg bg-slate-950/70 border border-white/5 space-y-0.5">
-                  <span className="text-[10px] font-bold text-amber-300 block uppercase">Key Constraints</span>
-                  <p className="text-slate-400 text-[11px]">
-                    • 2 &le; nums.length &le; 10⁴
-                  </p>
-                  <p className="text-slate-400 text-[11px]">
-                    • Exactly one valid solution exists
-                  </p>
+                  <span className="text-[10px] font-bold text-amber-300 block uppercase">
+                    Key Constraints
+                  </span>
+                  <p className="text-slate-400 text-[11px]">• 2 &le; nums.length &le; 10⁴</p>
+                  <p className="text-slate-400 text-[11px]">• Exactly one valid solution exists</p>
                 </div>
               </div>
             </>
           ) : (
             <div className="space-y-2 text-xs">
               <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-200">
-                <span className="font-bold text-[11px] block text-amber-300 mb-1">💡 Optimal Hash Map Single-Pass</span>
+                <span className="font-bold text-[11px] block text-amber-300 mb-1">
+                  💡 Optimal Hash Map Single-Pass
+                </span>
                 <p className="text-slate-300 text-xs leading-relaxed">
-                  Rather than scanning all pairs in O(N²), maintain a map of visited values to indices. As you iterate through each element <code className="text-amber-200 font-mono">x</code>, check whether <code className="text-amber-200 font-mono">target - x</code> was already observed.
+                  Rather than scanning all pairs in O(N²), maintain a map of visited values to
+                  indices. As you iterate through each element{' '}
+                  <code className="text-amber-200 font-mono">x</code>, check whether{' '}
+                  <code className="text-amber-200 font-mono">target - x</code> was already observed.
                 </p>
               </div>
               <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400">
@@ -151,11 +195,7 @@ export function IntervieweeSurface({ children }: IntervieweeSurfaceProps) {
       </div>
 
       {/* 2. Monaco Editor Middle Section */}
-      {children && (
-        <div className="flex-1 min-h-[220px] overflow-hidden relative">
-          {children}
-        </div>
-      )}
+      {children && <div className="flex-1 min-h-[220px] overflow-hidden relative">{children}</div>}
 
       {/* 3. Action Bar (Run Code & Submit Solution) */}
       <div className="h-11 shrink-0 px-4 bg-slate-900/90 border-t border-b border-white/10 flex items-center justify-between">
@@ -167,7 +207,11 @@ export function IntervieweeSurface({ children }: IntervieweeSurfaceProps) {
           >
             <Terminal className="w-3.5 h-3.5 text-[#818CF8]" />
             <span>Execution Console</span>
-            {consoleExpanded ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />}
+            {consoleExpanded ? (
+              <ChevronDown className="w-3 h-3" />
+            ) : (
+              <ChevronUp className="w-3 h-3" />
+            )}
           </button>
           <span className="text-slate-600">|</span>
           <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
@@ -235,9 +279,13 @@ export function IntervieweeSurface({ children }: IntervieweeSurfaceProps) {
             </div>
 
             <div className="flex items-center gap-3 text-[10px] text-slate-400">
-              <span>Runtime: <strong className="text-emerald-400">12ms</strong> (Beats 98.4%)</span>
+              <span>
+                Runtime: <strong className="text-emerald-400">12ms</strong> (Beats 98.4%)
+              </span>
               <span className="text-slate-600">•</span>
-              <span>Memory: <strong className="text-indigo-400">41.2 MB</strong></span>
+              <span>
+                Memory: <strong className="text-indigo-400">41.2 MB</strong>
+              </span>
             </div>
           </div>
 
@@ -248,36 +296,38 @@ export function IntervieweeSurface({ children }: IntervieweeSurfaceProps) {
                 <div className="w-4 h-4 rounded-full border-2 border-[#5856D6] border-t-transparent animate-spin" />
                 <span>Compiling in sandboxed V8 runner...</span>
               </div>
-            ) : (() => {
-              const currentCase = (testCases[selectedCase] ?? testCases[0])!;
-              return (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <div className="p-2 rounded bg-slate-950 border border-white/5">
-                    <span className="text-[10px] text-slate-500 uppercase block">Input</span>
-                    <p className="text-slate-200 text-xs font-mono mt-0.5">
-                      nums = {currentCase.nums}
-                    </p>
-                    <p className="text-slate-200 text-xs font-mono">
-                      target = {currentCase.target}
-                    </p>
-                  </div>
+            ) : (
+              (() => {
+                const currentCase = (testCases[selectedCase] ?? testCases[0])!;
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <div className="p-2 rounded bg-slate-950 border border-white/5">
+                      <span className="text-[10px] text-slate-500 uppercase block">Input</span>
+                      <p className="text-slate-200 text-xs font-mono mt-0.5">
+                        nums = {currentCase.nums}
+                      </p>
+                      <p className="text-slate-200 text-xs font-mono">
+                        target = {currentCase.target}
+                      </p>
+                    </div>
 
-                  <div className="p-2 rounded bg-slate-950 border border-white/5">
-                    <span className="text-[10px] text-slate-500 uppercase block">Output</span>
-                    <p className="text-emerald-400 text-xs font-mono font-bold mt-0.5">
-                      {currentCase.actual}
-                    </p>
-                  </div>
+                    <div className="p-2 rounded bg-slate-950 border border-white/5">
+                      <span className="text-[10px] text-slate-500 uppercase block">Output</span>
+                      <p className="text-emerald-400 text-xs font-mono font-bold mt-0.5">
+                        {currentCase.actual}
+                      </p>
+                    </div>
 
-                  <div className="p-2 rounded bg-slate-950 border border-white/5">
-                    <span className="text-[10px] text-slate-500 uppercase block">Expected</span>
-                    <p className="text-slate-300 text-xs font-mono mt-0.5">
-                      {currentCase.expected}
-                    </p>
+                    <div className="p-2 rounded bg-slate-950 border border-white/5">
+                      <span className="text-[10px] text-slate-500 uppercase block">Expected</span>
+                      <p className="text-slate-300 text-xs font-mono mt-0.5">
+                        {currentCase.expected}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              );
-            })()}
+                );
+              })()
+            )}
           </div>
         </div>
       )}
@@ -286,4 +336,3 @@ export function IntervieweeSurface({ children }: IntervieweeSurfaceProps) {
 }
 
 export default IntervieweeSurface;
-
